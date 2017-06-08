@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FireBonFireView" customModule="BonFire" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-UG-Waj">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mau-Qx-sqM">
+                    <rect key="frame" x="10" y="108" width="300" height="450"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NKG-vJ-rUD">
+                            <rect key="frame" x="56" y="270" width="189" height="172"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camp it!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnD-s2-hXH">
+                                    <rect key="frame" x="0.0" y="0.0" width="189" height="43.5"/>
+                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give Your Campsite A Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g86-jV-1Eh">
+                                    <rect key="frame" x="0.0" y="51.5" width="189" height="18.5"/>
+                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Storyvillie" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EbO-rT-iF1">
+                                    <rect key="frame" x="0.0" y="78" width="189" height="30"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <action selector="editingChange:" destination="iN0-l3-epB" eventType="editingChanged" id="NQC-OY-ChW"/>
+                                        <outlet property="delegate" destination="iN0-l3-epB" id="7fR-eC-lpg"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yd1-gZ-iYP">
+                                    <rect key="frame" x="0.0" y="116" width="189" height="56"/>
+                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                    <state key="normal" title="OK"/>
+                                    <connections>
+                                        <action selector="fire:" destination="iN0-l3-epB" eventType="touchUpInside" id="YbK-8A-laB"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6T-AH-FIX">
+                            <rect key="frame" x="254" y="23.5" width="38" height="66"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                            <state key="normal" title="✘">
+                                <color key="titleColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancel:" destination="iN0-l3-epB" eventType="touchUpInside" id="9dD-SQ-UEg"/>
+                            </connections>
+                        </button>
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bonFire" translatesAutoresizingMaskIntoConstraints="NO" id="8Yx-Im-BCc">
+                            <rect key="frame" x="55" y="73" width="189" height="189"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="8Yx-Im-BCc" secondAttribute="height" multiplier="1:1" id="YwJ-tl-3Sd"/>
+                                <constraint firstAttribute="width" constant="189" id="nDr-SZ-02q"/>
+                            </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="wXb-xB-blz" appends="YES" id="Drq-p4-GLM"/>
+                            </connections>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select A Picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tL-hn-AoY">
+                            <rect key="frame" x="94.5" y="46.5" width="111.5" height="18.5"/>
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="8Yx-Im-BCc" firstAttribute="top" secondItem="8tL-hn-AoY" secondAttribute="bottom" constant="8" id="3lP-6j-MMl"/>
+                        <constraint firstItem="8Yx-Im-BCc" firstAttribute="centerX" secondItem="Mau-Qx-sqM" secondAttribute="centerX" id="4cv-xl-IDW"/>
+                        <constraint firstAttribute="height" constant="450" id="8oF-yk-boe"/>
+                        <constraint firstAttribute="trailing" secondItem="h6T-AH-FIX" secondAttribute="trailing" constant="8" id="AON-o9-fbI"/>
+                        <constraint firstItem="NKG-vJ-rUD" firstAttribute="top" secondItem="8Yx-Im-BCc" secondAttribute="bottom" constant="8" id="JUT-bn-rsA"/>
+                        <constraint firstItem="8Yx-Im-BCc" firstAttribute="width" secondItem="NKG-vJ-rUD" secondAttribute="width" id="khZ-Xv-Cnq"/>
+                        <constraint firstItem="NKG-vJ-rUD" firstAttribute="centerX" secondItem="Mau-Qx-sqM" secondAttribute="centerX" id="oHb-il-OsZ"/>
+                        <constraint firstItem="h6T-AH-FIX" firstAttribute="centerY" secondItem="8tL-hn-AoY" secondAttribute="centerY" id="oZC-j5-kMz"/>
+                        <constraint firstAttribute="bottom" secondItem="NKG-vJ-rUD" secondAttribute="bottom" constant="8" id="rW4-FY-RoS"/>
+                        <constraint firstItem="8tL-hn-AoY" firstAttribute="centerX" secondItem="Mau-Qx-sqM" secondAttribute="centerX" id="zcS-DW-5pH"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="KhZ-UG-Waj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DwA-Hc-Sxe"/>
+                <constraint firstAttribute="bottom" secondItem="KhZ-UG-Waj" secondAttribute="bottom" id="F7F-5v-7Ps"/>
+                <constraint firstAttribute="bottom" secondItem="Mau-Qx-sqM" secondAttribute="bottom" constant="10" id="Gi4-ro-IMD"/>
+                <constraint firstItem="KhZ-UG-Waj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cT6-3q-oW7"/>
+                <constraint firstAttribute="trailing" secondItem="Mau-Qx-sqM" secondAttribute="trailing" constant="10" id="m8u-wX-YSg"/>
+                <constraint firstAttribute="trailing" secondItem="KhZ-UG-Waj" secondAttribute="trailing" id="o3R-9y-yRC"/>
+                <constraint firstItem="Mau-Qx-sqM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="wcS-aO-Vyf"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="bounceAnimationOffset">
+                    <real key="value" value="0.0"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="statusBarOffset">
+                    <real key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="campSiteNameTextField" destination="EbO-rT-iF1" id="jGH-Wu-7wQ"/>
+                <outlet property="insideView" destination="Mau-Qx-sqM" id="Qip-dM-azq"/>
+                <outlet property="okButton" destination="Yd1-gZ-iYP" id="OVu-dA-oyg"/>
+                <outlet property="outsideView" destination="KhZ-UG-Waj" id="Nf9-9a-vTz"/>
+                <outlet property="profileImageView" destination="8Yx-Im-BCc" id="q6o-4C-gkF"/>
+            </connections>
+            <point key="canvasLocation" x="48" y="-529.5"/>
+        </view>
+        <tapGestureRecognizer id="wXb-xB-blz">
+            <connections>
+                <action selector="didTapImageView:" destination="iN0-l3-epB" id="EOb-md-7IY"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="bonFire" width="156" height="156"/>
+    </resources>
+</document>

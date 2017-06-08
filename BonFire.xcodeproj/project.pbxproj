@@ -1,0 +1,579 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		17100D391EADBB560054271C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D381EADBB560054271C /* AppDelegate.swift */; };
+		17100D3E1EADBB560054271C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17100D3C1EADBB560054271C /* Main.storyboard */; };
+		17100D401EADBB560054271C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17100D3F1EADBB560054271C /* Assets.xcassets */; };
+		17100D431EADBB560054271C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17100D411EADBB560054271C /* LaunchScreen.storyboard */; };
+		17100D501EADBC8C0054271C /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D4F1EADBC8C0054271C /* MainMapViewController.swift */; };
+		17100D531EADBCA90054271C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17100D521EADBCA90054271C /* MapKit.framework */; };
+		17100D551EADBCB10054271C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17100D541EADBCB10054271C /* CoreLocation.framework */; };
+		17100D5C1EADEBBC0054271C /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 17100D5B1EADEBBC0054271C /* MKMapView+ZoomLevel.m */; };
+		17100D5E1EAFA5A50054271C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D5D1EAFA5A50054271C /* ChatViewController.swift */; };
+		17100D621EB02BE10054271C /* OthersChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D611EB02BE10054271C /* OthersChatTableViewCell.swift */; };
+		17100D641EB02BF40054271C /* UserChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D631EB02BF40054271C /* UserChatTableViewCell.swift */; };
+		17100D671EB040F00054271C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D661EB040F00054271C /* Message.swift */; };
+		17100D701EB117730054271C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17100D6F1EB117730054271C /* GoogleService-Info.plist */; };
+		17100D751EB21ACE0054271C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17100D731EB21ACE0054271C /* SignInViewController.swift */; };
+		17100D771EB272A50054271C /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17100D741EB21ACE0054271C /* SignInViewController.xib */; };
+		171F6CE01EB891C6000FE40F /* CampsiteInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CDF1EB891C6000FE40F /* CampsiteInfoView.swift */; };
+		171F6CE21EB891D8000FE40F /* CampsiteInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 171F6CE11EB891D8000FE40F /* CampsiteInfoView.xib */; };
+		171F6CE41EB8A092000FE40F /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CE31EB8A092000FE40F /* UIView.swift */; };
+		171F6CE61EB8E009000FE40F /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CE51EB8E009000FE40F /* FirebaseClient.swift */; };
+		171F6CE81EB96619000FE40F /* CampsiteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CE71EB96619000FE40F /* CampsiteAnnotation.swift */; };
+		171F6CEA1EBF2BC7000FE40F /* UserInfoEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 171F6CE91EBF2BC7000FE40F /* UserInfoEditView.xib */; };
+		171F6CEC1EBF2BD7000FE40F /* UserInfoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CEB1EBF2BD7000FE40F /* UserInfoEditView.swift */; };
+		171F6CF11EC0728B000FE40F /* FirebaseClient+Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CF01EC0728B000FE40F /* FirebaseClient+Storage.swift */; };
+		171F6CF31EC07E4B000FE40F /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CF21EC07E4B000FE40F /* UIImageView.swift */; };
+		171F6CF51EC0AA0A000FE40F /* BonFireBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CF41EC0AA0A000FE40F /* BonFireBaseViewController.swift */; };
+		171F6CFB1EC41F45000FE40F /* ImageMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CFA1EC41F45000FE40F /* ImageMessageTableViewCell.swift */; };
+		171F6CFD1EC9F297000FE40F /* UtilityFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171F6CFC1EC9F297000FE40F /* UtilityFunction.swift */; };
+		172227521EB6D49900F9E3B9 /* Campsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172227511EB6D49900F9E3B9 /* Campsite.swift */; };
+		172227541EB6D56600F9E3B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172227531EB6D56600F9E3B9 /* User.swift */; };
+		172227561EB823E200F9E3B9 /* CampsiteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172227551EB823E200F9E3B9 /* CampsiteListTableViewCell.swift */; };
+		1727ED061EB2E0AC000AE694 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727ED051EB2E0AC000AE694 /* Constants.swift */; };
+		1727ED081EB30ABA000AE694 /* FireBonFireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727ED071EB30ABA000AE694 /* FireBonFireView.swift */; };
+		1727ED0A1EB30AF4000AE694 /* FireBonFireView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1727ED091EB30AF4000AE694 /* FireBonFireView.xib */; };
+		175CF1571ED5BF8A00DDE7CE /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175CF1561ED5BF8A00DDE7CE /* UIWindow.swift */; };
+		17DFD4901EB5A81700209E23 /* CampsiteListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DFD48F1EB5A81700209E23 /* CampsiteListsTableViewController.swift */; };
+		E41B2D585DEE89FA250B1505 /* Pods_BonFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8122201D49A68097BFDF4554 /* Pods_BonFire.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		17100D351EADBB560054271C /* BonFire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BonFire.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17100D381EADBB560054271C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		17100D3D1EADBB560054271C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		17100D3F1EADBB560054271C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		17100D421EADBB560054271C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		17100D441EADBB560054271C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17100D4F1EADBC8C0054271C /* MainMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
+		17100D521EADBCA90054271C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		17100D541EADBCB10054271C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		17100D591EADEBBB0054271C /* BonFire-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BonFire-Bridging-Header.h"; sourceTree = "<group>"; };
+		17100D5A1EADEBBC0054271C /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		17100D5B1EADEBBC0054271C /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		17100D5D1EAFA5A50054271C /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		17100D611EB02BE10054271C /* OthersChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OthersChatTableViewCell.swift; sourceTree = "<group>"; };
+		17100D631EB02BF40054271C /* UserChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserChatTableViewCell.swift; sourceTree = "<group>"; };
+		17100D661EB040F00054271C /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		17100D6F1EB117730054271C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		17100D731EB21ACE0054271C /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		17100D741EB21ACE0054271C /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		171F6CDF1EB891C6000FE40F /* CampsiteInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampsiteInfoView.swift; sourceTree = "<group>"; };
+		171F6CE11EB891D8000FE40F /* CampsiteInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CampsiteInfoView.xib; sourceTree = "<group>"; };
+		171F6CE31EB8A092000FE40F /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		171F6CE51EB8E009000FE40F /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		171F6CE71EB96619000FE40F /* CampsiteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampsiteAnnotation.swift; sourceTree = "<group>"; };
+		171F6CE91EBF2BC7000FE40F /* UserInfoEditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoEditView.xib; sourceTree = "<group>"; };
+		171F6CEB1EBF2BD7000FE40F /* UserInfoEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoEditView.swift; sourceTree = "<group>"; };
+		171F6CF01EC0728B000FE40F /* FirebaseClient+Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FirebaseClient+Storage.swift"; sourceTree = "<group>"; };
+		171F6CF21EC07E4B000FE40F /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		171F6CF41EC0AA0A000FE40F /* BonFireBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonFireBaseViewController.swift; sourceTree = "<group>"; };
+		171F6CFA1EC41F45000FE40F /* ImageMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMessageTableViewCell.swift; sourceTree = "<group>"; };
+		171F6CFC1EC9F297000FE40F /* UtilityFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityFunction.swift; sourceTree = "<group>"; };
+		172227511EB6D49900F9E3B9 /* Campsite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campsite.swift; sourceTree = "<group>"; };
+		172227531EB6D56600F9E3B9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		172227551EB823E200F9E3B9 /* CampsiteListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampsiteListTableViewCell.swift; sourceTree = "<group>"; };
+		1727ED051EB2E0AC000AE694 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1727ED071EB30ABA000AE694 /* FireBonFireView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBonFireView.swift; sourceTree = "<group>"; };
+		1727ED091EB30AF4000AE694 /* FireBonFireView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FireBonFireView.xib; sourceTree = "<group>"; };
+		175CF1561ED5BF8A00DDE7CE /* UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
+		17DFD48F1EB5A81700209E23 /* CampsiteListsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampsiteListsTableViewController.swift; sourceTree = "<group>"; };
+		58610A42FFF9E2B4D73680F8 /* Pods-BonFire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BonFire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BonFire/Pods-BonFire.debug.xcconfig"; sourceTree = "<group>"; };
+		8122201D49A68097BFDF4554 /* Pods_BonFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BonFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEDC0A5C057AF8344FFFAF6F /* Pods-BonFire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BonFire.release.xcconfig"; path = "Pods/Target Support Files/Pods-BonFire/Pods-BonFire.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		17100D321EADBB560054271C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17100D551EADBCB10054271C /* CoreLocation.framework in Frameworks */,
+				17100D531EADBCA90054271C /* MapKit.framework in Frameworks */,
+				E41B2D585DEE89FA250B1505 /* Pods_BonFire.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		17100D2C1EADBB560054271C = {
+			isa = PBXGroup;
+			children = (
+				17100D371EADBB560054271C /* BonFire */,
+				17100D361EADBB560054271C /* Products */,
+				17100D511EADBCA90054271C /* Frameworks */,
+				B24E2BBAA69B615FC65589AA /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		17100D361EADBB560054271C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				17100D351EADBB560054271C /* BonFire.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		17100D371EADBB560054271C /* BonFire */ = {
+			isa = PBXGroup;
+			children = (
+				1727ED051EB2E0AC000AE694 /* Constants.swift */,
+				17100D381EADBB560054271C /* AppDelegate.swift */,
+				17100D4C1EADBBF80054271C /* Assets */,
+				17100D4A1EADBB950054271C /* Supporting Files */,
+				17100D561EADDF770054271C /* Extension */,
+				17100D4B1EADBBD70054271C /* Models */,
+				17100D4E1EADBC190054271C /* Views */,
+				17100D4D1EADBC0A0054271C /* Controllers */,
+			);
+			path = BonFire;
+			sourceTree = "<group>";
+		};
+		17100D4A1EADBB950054271C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				17100D441EADBB560054271C /* Info.plist */,
+				17100D6F1EB117730054271C /* GoogleService-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17100D4B1EADBBD70054271C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				171F6CE51EB8E009000FE40F /* FirebaseClient.swift */,
+				171F6CF01EC0728B000FE40F /* FirebaseClient+Storage.swift */,
+				17100D651EB02BFD0054271C /* Cell */,
+				17100D661EB040F00054271C /* Message.swift */,
+				172227511EB6D49900F9E3B9 /* Campsite.swift */,
+				172227531EB6D56600F9E3B9 /* User.swift */,
+				171F6CE71EB96619000FE40F /* CampsiteAnnotation.swift */,
+				171F6CFC1EC9F297000FE40F /* UtilityFunction.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		17100D4C1EADBBF80054271C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				17100D3C1EADBB560054271C /* Main.storyboard */,
+				17100D3F1EADBB560054271C /* Assets.xcassets */,
+				17100D411EADBB560054271C /* LaunchScreen.storyboard */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		17100D4D1EADBC0A0054271C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				171F6CF41EC0AA0A000FE40F /* BonFireBaseViewController.swift */,
+				17100D4F1EADBC8C0054271C /* MainMapViewController.swift */,
+				17DFD48F1EB5A81700209E23 /* CampsiteListsTableViewController.swift */,
+				17100D5D1EAFA5A50054271C /* ChatViewController.swift */,
+				17100D731EB21ACE0054271C /* SignInViewController.swift */,
+				17100D741EB21ACE0054271C /* SignInViewController.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		17100D4E1EADBC190054271C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				17100D6C1EB0601D0054271C /* UI */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		17100D511EADBCA90054271C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17100D541EADBCB10054271C /* CoreLocation.framework */,
+				17100D521EADBCA90054271C /* MapKit.framework */,
+				8122201D49A68097BFDF4554 /* Pods_BonFire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		17100D561EADDF770054271C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				17100D5A1EADEBBC0054271C /* MKMapView+ZoomLevel.h */,
+				17100D5B1EADEBBC0054271C /* MKMapView+ZoomLevel.m */,
+				17100D591EADEBBB0054271C /* BonFire-Bridging-Header.h */,
+				171F6CE31EB8A092000FE40F /* UIView.swift */,
+				171F6CF21EC07E4B000FE40F /* UIImageView.swift */,
+				175CF1561ED5BF8A00DDE7CE /* UIWindow.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+		17100D651EB02BFD0054271C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				17100D611EB02BE10054271C /* OthersChatTableViewCell.swift */,
+				17100D631EB02BF40054271C /* UserChatTableViewCell.swift */,
+				172227551EB823E200F9E3B9 /* CampsiteListTableViewCell.swift */,
+				171F6CFA1EC41F45000FE40F /* ImageMessageTableViewCell.swift */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		17100D6C1EB0601D0054271C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1727ED071EB30ABA000AE694 /* FireBonFireView.swift */,
+				1727ED091EB30AF4000AE694 /* FireBonFireView.xib */,
+				171F6CDF1EB891C6000FE40F /* CampsiteInfoView.swift */,
+				171F6CE11EB891D8000FE40F /* CampsiteInfoView.xib */,
+				171F6CEB1EBF2BD7000FE40F /* UserInfoEditView.swift */,
+				171F6CE91EBF2BC7000FE40F /* UserInfoEditView.xib */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		B24E2BBAA69B615FC65589AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				58610A42FFF9E2B4D73680F8 /* Pods-BonFire.debug.xcconfig */,
+				AEDC0A5C057AF8344FFFAF6F /* Pods-BonFire.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		17100D341EADBB560054271C /* BonFire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17100D471EADBB560054271C /* Build configuration list for PBXNativeTarget "BonFire" */;
+			buildPhases = (
+				590818A5B7DBA15FE7747AE5 /* [CP] Check Pods Manifest.lock */,
+				17100D311EADBB560054271C /* Sources */,
+				17100D321EADBB560054271C /* Frameworks */,
+				17100D331EADBB560054271C /* Resources */,
+				769FDCBF1679497351E31A7F /* [CP] Embed Pods Frameworks */,
+				BC7B36B4781BCF29094062BB /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BonFire;
+			productName = BonFire;
+			productReference = 17100D351EADBB560054271C /* BonFire.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		17100D2D1EADBB560054271C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "ChienTa Chen";
+				TargetAttributes = {
+					17100D341EADBB560054271C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = J7H5A866HS;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 17100D301EADBB560054271C /* Build configuration list for PBXProject "BonFire" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 17100D2C1EADBB560054271C;
+			productRefGroup = 17100D361EADBB560054271C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				17100D341EADBB560054271C /* BonFire */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		17100D331EADBB560054271C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1727ED0A1EB30AF4000AE694 /* FireBonFireView.xib in Resources */,
+				171F6CEA1EBF2BC7000FE40F /* UserInfoEditView.xib in Resources */,
+				171F6CE21EB891D8000FE40F /* CampsiteInfoView.xib in Resources */,
+				17100D771EB272A50054271C /* SignInViewController.xib in Resources */,
+				17100D431EADBB560054271C /* LaunchScreen.storyboard in Resources */,
+				17100D701EB117730054271C /* GoogleService-Info.plist in Resources */,
+				17100D401EADBB560054271C /* Assets.xcassets in Resources */,
+				17100D3E1EADBB560054271C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		590818A5B7DBA15FE7747AE5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		769FDCBF1679497351E31A7F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BonFire/Pods-BonFire-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC7B36B4781BCF29094062BB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BonFire/Pods-BonFire-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		17100D311EADBB560054271C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				171F6CE41EB8A092000FE40F /* UIView.swift in Sources */,
+				172227541EB6D56600F9E3B9 /* User.swift in Sources */,
+				171F6CF51EC0AA0A000FE40F /* BonFireBaseViewController.swift in Sources */,
+				172227561EB823E200F9E3B9 /* CampsiteListTableViewCell.swift in Sources */,
+				1727ED081EB30ABA000AE694 /* FireBonFireView.swift in Sources */,
+				17100D671EB040F00054271C /* Message.swift in Sources */,
+				171F6CF31EC07E4B000FE40F /* UIImageView.swift in Sources */,
+				17DFD4901EB5A81700209E23 /* CampsiteListsTableViewController.swift in Sources */,
+				171F6CE01EB891C6000FE40F /* CampsiteInfoView.swift in Sources */,
+				171F6CFD1EC9F297000FE40F /* UtilityFunction.swift in Sources */,
+				171F6CFB1EC41F45000FE40F /* ImageMessageTableViewCell.swift in Sources */,
+				1727ED061EB2E0AC000AE694 /* Constants.swift in Sources */,
+				171F6CF11EC0728B000FE40F /* FirebaseClient+Storage.swift in Sources */,
+				171F6CE81EB96619000FE40F /* CampsiteAnnotation.swift in Sources */,
+				17100D501EADBC8C0054271C /* MainMapViewController.swift in Sources */,
+				17100D641EB02BF40054271C /* UserChatTableViewCell.swift in Sources */,
+				17100D5C1EADEBBC0054271C /* MKMapView+ZoomLevel.m in Sources */,
+				175CF1571ED5BF8A00DDE7CE /* UIWindow.swift in Sources */,
+				171F6CE61EB8E009000FE40F /* FirebaseClient.swift in Sources */,
+				172227521EB6D49900F9E3B9 /* Campsite.swift in Sources */,
+				17100D5E1EAFA5A50054271C /* ChatViewController.swift in Sources */,
+				17100D751EB21ACE0054271C /* SignInViewController.swift in Sources */,
+				171F6CEC1EBF2BD7000FE40F /* UserInfoEditView.swift in Sources */,
+				17100D621EB02BE10054271C /* OthersChatTableViewCell.swift in Sources */,
+				17100D391EADBB560054271C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		17100D3C1EADBB560054271C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17100D3D1EADBB560054271C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		17100D411EADBB560054271C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17100D421EADBB560054271C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		17100D451EADBB560054271C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		17100D461EADBB560054271C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		17100D481EADBB560054271C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58610A42FFF9E2B4D73680F8 /* Pods-BonFire.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = J7H5A866HS;
+				INFOPLIST_FILE = BonFire/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.RokurouC.BonFire;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BonFire/BonFire-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		17100D491EADBB560054271C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEDC0A5C057AF8344FFFAF6F /* Pods-BonFire.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = J7H5A866HS;
+				INFOPLIST_FILE = BonFire/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.RokurouC.BonFire;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BonFire/BonFire-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		17100D301EADBB560054271C /* Build configuration list for PBXProject "BonFire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17100D451EADBB560054271C /* Debug */,
+				17100D461EADBB560054271C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17100D471EADBB560054271C /* Build configuration list for PBXNativeTarget "BonFire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17100D481EADBB560054271C /* Debug */,
+				17100D491EADBB560054271C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 17100D2D1EADBB560054271C /* Project object */;
+}
