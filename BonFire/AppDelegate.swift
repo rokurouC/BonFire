@@ -17,11 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var reachability: Reachability?
     var internetAlert:UIAlertController?
+    var firDatabaseRef:DatabaseReference!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+        firDatabaseRef = Database.database().reference()
         return true
     }
     

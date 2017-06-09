@@ -53,7 +53,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     }
     
     private func configureDatabase() {
-        campsitesLastMessageRef = FirebaseClient.sharedInstance.firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites).child(currentCampsite!.id).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
+        campsitesLastMessageRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites).child(currentCampsite!.id).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
     }
     
     private func getMessagesAndListenLastMessage() {

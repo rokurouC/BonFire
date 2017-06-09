@@ -139,8 +139,8 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     
     //MARK: - Configuration
     private func configureDatabase() {
-        usersRef = FirebaseClient.sharedInstance.firDatabaseRef.child(Constants.FIRDatabaseConstants.users)
-        campsitesRef = FirebaseClient.sharedInstance.firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites)
+        usersRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.users)
+        campsitesRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites)
     }
     
     private func configureAuth() {

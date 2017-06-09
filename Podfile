@@ -7,9 +7,13 @@ target 'BonFire' do
 
   # Pods for BonFire
 pod 'Firebase/Core'
-pod 'FirebaseUI', '~> 3.0'
+pod 'Firebase/Storage'
+pod 'FirebaseUI/Database'
+pod 'FirebaseUI/Auth'
+pod 'FirebaseUI/Google'
+pod 'FirebaseUI/Facebook'
 pod 'AMPopTip'
 pod 'PermissionScope'
-pod 'ReachabilitySwift', '~> 3'
+pod 'ReachabilitySwift'
 
 end

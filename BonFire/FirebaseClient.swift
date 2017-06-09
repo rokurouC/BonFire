@@ -14,13 +14,12 @@ import FirebaseFacebookAuthUI
 
 class FirebaseClient:NSObject {
     static let sharedInstance = FirebaseClient()
-    var firDatabaseRef:DatabaseReference = Database.database().reference()
     
     //MARK: - Database Reference
-    private let rootRef = FirebaseClient.sharedInstance.firDatabaseRef
-    private let campsitesRef = FirebaseClient.sharedInstance.firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites)
-    private let messagesRef = FirebaseClient.sharedInstance.firDatabaseRef.child(Constants.FIRDatabaseConstants.messages)
-    private let usersRef = FirebaseClient.sharedInstance.firDatabaseRef.child(Constants.FIRDatabaseConstants.users)
+    private let rootRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef
+    private let campsitesRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites)
+    private let messagesRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.messages)
+    private let usersRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.users)
     
     ///User who login and using App
     var currentUser:User?
@@ -265,7 +264,7 @@ class FirebaseClient:NSObject {
             let childUpdates = ["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteAutoId)":campsiteData,
                                 "/\(Constants.FIRDatabaseConstants.campsitemembers)/\(campsiteAutoId)/\(user.uId)":campsitemembersData,
                                 "/\(Constants.FIRDatabaseConstants.users)/\(user.uId)/\(Constants.FIRDatabaseConstants.User.campsites)/\(campsiteAutoId)":userCampsiteData] as [String : Any]
-            self.rootRef.updateChildValues(childUpdates) { (error, _) in
+            self.rootRef?.updateChildValues(childUpdates) { (error, _) in
                 guard error == nil else { return }
                 self.getCampsiteInfoWithCampsiteId(campsiteId: campsiteAutoId, completion: { (campsite) in
                     guard campsite != nil else {
@@ -301,7 +300,7 @@ class FirebaseClient:NSObject {
                                    Constants.FIRDatabaseConstants.Campsite.jointime:Date.timeIntervalSinceReferenceDate] as [String : Any]
         let childUpdates = ["/\(Constants.FIRDatabaseConstants.campsitemembers)/\(campsite.id)/\(user.uId)":campsitemembersData,
                             "/\(Constants.FIRDatabaseConstants.users)/\(user.uId)/\(Constants.FIRDatabaseConstants.User.campsites)/\(campsite.id)":userCampsiteData] as [String : Any]
-        rootRef.updateChildValues(childUpdates) { (error, _) in
+        rootRef?.updateChildValues(childUpdates) { (error, _) in
             guard error == nil else { return }
             completion()
         }
@@ -316,7 +315,7 @@ class FirebaseClient:NSObject {
                                        Constants.FIRDatabaseConstants.Message.timestamp:Date.timeIntervalSinceReferenceDate,
                                        Constants.FIRDatabaseConstants.Message.displayUserName:user.appDisplayName,
                                        Constants.FIRDatabaseConstants.Message.avatarUrl:user.avatarUrl] as [String : Any]
-        rootRef.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
+        rootRef?.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
     }
     
     func addImageMessageToCampsite(user:BonFireUser, image:UIImage, campsiteId:String, quality:CGFloat) {
@@ -329,7 +328,7 @@ class FirebaseClient:NSObject {
                                            Constants.FIRDatabaseConstants.Message.timestamp:Date.timeIntervalSinceReferenceDate,
                                            Constants.FIRDatabaseConstants.Message.displayUserName:user.appDisplayName,
                                            Constants.FIRDatabaseConstants.Message.avatarUrl:user.avatarUrl] as [String : Any]
-            self.rootRef.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
+            self.rootRef?.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
         }
     }
     
