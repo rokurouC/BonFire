@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func reachabilityChanged(_ note: Notification) {
         if let reachability = note.object as? Reachability {
             if !reachability.isReachable {
-                UtilityFunction.shared.unreachableAlert()
+                UtilityFunction.shared.alertUnreachable()
             }
         }
     }

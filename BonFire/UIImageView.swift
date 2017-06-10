@@ -33,7 +33,7 @@ extension UIImageView {
                 guard error == nil else {
                     if let error = error as NSError?{
                         if error.code == -1009 {
-                            UtilityFunction.shared.loadFailedAlert()
+                            UtilityFunction.shared.alertImageLoadFailed()
                         }
                     }
                     return

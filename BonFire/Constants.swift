@@ -10,6 +10,7 @@ import Foundation
 
 struct Constants {
     static let isUserFirstUseAppKey = "isUserFirstUseAppKey"
+    static let confirm = "OK"
     struct FIRDatabaseConstants {
         static let users = "users"
         static let campsites = "campsites"
@@ -76,6 +77,20 @@ struct Constants {
             static let body = "📷"
             static let message = "For taking pictures by camera, please enable BonFire to use it!"
             
+        }
+    }
+    struct AlertConstants {
+        struct UnreachableAlert {
+            static let title = "Disconnect!"
+            static let message = "Check the network and come back later."
+        }
+        struct LoadFailedAlert {
+            static let title = "Loading image failed!"
+            static let message = "Check the network and come back later."
+        }
+        struct GetUserLocationFailedAlert {
+            static let title = "Get Location failed!"
+            static let message = "Check the network and come back later."
         }
     }
 }

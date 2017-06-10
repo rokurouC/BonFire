@@ -9,10 +9,12 @@
 import UIKit
 
 class UtilityFunction {
+    
     static let shared = UtilityFunction()
     private var internetUnreachableAlert:UIAlertController?
     private var imageLoadFailedAlert:UIAlertController?
-    
+    private var getUserLocationFailedAlert:UIAlertController?
+
     func activityIndicatorViewWithCnterFrame(style:UIActivityIndicatorViewStyle, targetView:UIView) -> UIActivityIndicatorView {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: style)
         activity.center = targetView.center
@@ -20,9 +22,9 @@ class UtilityFunction {
         return activity
     }
     
-    func unreachableAlert() {
-        let alert = UIAlertController(title: "Disconnect!", message: "Check the network and come back later.", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default) { (_) in
+    func alertUnreachable() {
+        let alert = UIAlertController(title: Constants.AlertConstants.UnreachableAlert.title, message: Constants.AlertConstants.UnreachableAlert.message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: Constants.confirm, style: .default) { (_) in
             self.internetUnreachableAlert = nil
         }
         alert.addAction(ok)
@@ -32,15 +34,27 @@ class UtilityFunction {
         }
     }
     
-    func loadFailedAlert() {
-        let alert = UIAlertController(title: "Loading image failed", message: "Check the network and come back later.", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default){ (_) in
+    func alertImageLoadFailed() {
+        let alert = UIAlertController(title: Constants.AlertConstants.LoadFailedAlert.title, message: Constants.AlertConstants.LoadFailedAlert.message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: Constants.confirm, style: .default){ (_) in
             self.imageLoadFailedAlert = nil
         }
 
         alert.addAction(ok)
         if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, imageLoadFailedAlert == nil {
             imageLoadFailedAlert = alert
+            visibleVC.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func alertGetUserLocationFailed() {
+        let alert = UIAlertController(title: Constants.AlertConstants.GetUserLocationFailedAlert.title, message: Constants.AlertConstants.GetUserLocationFailedAlert.message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: Constants.confirm, style: .default){ (_) in
+            self.getUserLocationFailedAlert = nil
+        }
+        alert.addAction(ok)
+        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, getUserLocationFailedAlert == nil {
+            getUserLocationFailedAlert = alert
             visibleVC.present(alert, animated: true, completion: nil)
         }
     }

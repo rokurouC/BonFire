@@ -251,11 +251,14 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         let latDelta:CLLocationDegrees = mapviewSetRegionDegrees
         let lonDelta:CLLocationDegrees = mapviewSetRegionDegrees
         
-        let userLocation = locationManager?.location?.coordinate
-        let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
-        let region = MKCoordinateRegion(center: userLocation!, span: span)
-        mapView.setRegion(region, animated: true)
-        
+        if let userLocation = locationManager?.location?.coordinate {
+            let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
+            let region = MKCoordinateRegion(center: userLocation, span: span)
+            mapView.setRegion(region, animated: true)
+        }else {
+            //can't get user location, maybe lose connect
+            UtilityFunction.shared.alertGetUserLocationFailed()
+        }
     }
     
     fileprivate func showCampsiteInfoWithId(id:String, completion:@escaping () ->Void) {
