@@ -33,7 +33,7 @@ struct Constants {
         static let campsitemembers = "campsiteMembers"
         static let messages = "messages"
         struct Message {
-            static let id = "id" 
+            static let id = "id"
             static let text = "text"
             static let userId = "userId"
             static let timestamp = "timestamp"
@@ -57,6 +57,26 @@ struct Constants {
         static let profileAvatar_image = "profileAvatar_image"
         static let campsiteProfile_image = "campsiteProfile_image"
         static let message_image = "message_image"
+    }
+    struct PermissionScopeConstants {
+        struct LocationWhileInUsePermission {
+            static let header = "Need Location"
+            static let body = "🏝"
+            static let message = "For all features, please enable BonFire to know where you are!"
+        }
+        
+        struct PhotosPermission {
+            static let header = "Need Photos"
+            static let body = "🏞"
+            static let message = "For picking photos from library, please enable BonFire to use it!"
+            
+        }
+        struct CameraPermission {
+            static let header = "Need Camera"
+            static let body = "📷"
+            static let message = "For taking pictures by camera, please enable BonFire to use it!"
+            
+        }
     }
 }
 

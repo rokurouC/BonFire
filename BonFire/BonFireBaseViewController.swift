@@ -12,16 +12,16 @@ import PermissionScope
 class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let pscopeCamera:PermissionScope = {
         let pscope = PermissionScope()
-        pscope.headerLabel.text = "Need Camera"
-        pscope.bodyLabel.text = "📷"
-        pscope.addPermission(CameraPermission(), message: "For taking pictures by camera, please enable BonFire to use it!")
+        pscope.headerLabel.text = Constants.PermissionScopeConstants.CameraPermission.header
+        pscope.bodyLabel.text = Constants.PermissionScopeConstants.CameraPermission.body
+        pscope.addPermission(CameraPermission(), message: Constants.PermissionScopeConstants.CameraPermission.message)
         return pscope
     }()
     let pscopePhoto:PermissionScope = {
         let pscope = PermissionScope()
-        pscope.headerLabel.text = "Need Photos"
-        pscope.bodyLabel.text = "🏞"
-        pscope.addPermission(PhotosPermission(), message: "For picking photos from library, please enable BonFire to use it!")
+        pscope.headerLabel.text = Constants.PermissionScopeConstants.PhotosPermission.header
+        pscope.bodyLabel.text = Constants.PermissionScopeConstants.PhotosPermission.body
+        pscope.addPermission(PhotosPermission(), message: Constants.PermissionScopeConstants.PhotosPermission.message)
         return pscope
     }()
     

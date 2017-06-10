@@ -23,12 +23,15 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     @IBOutlet private weak var coverImageView: UIImageView!
     @IBOutlet private weak var bonFireButton: UIButton!
     @IBOutlet private weak var logoutButton: UIButton!
-    
     @IBOutlet weak var campsiteListButton: UIButton!
+    
     //MARK: - Property
     ///detect campsite light size
     private var campsiteRadius:CGFloat = 15
+    //detect scale when map set region
     private let mapviewSetRegionDegrees:CLLocationDegrees = 20
+    private let lightMapTimeInterval:Double = 0.03
+    private let coverImageAlphe:CGFloat = 0.7
     
     private weak var timer:Timer?
     private var zoomLevel:UInt {
@@ -37,28 +40,25 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         }
     }
     private var campsiteAnnotations = [CampsiteAnnotation]()
+    //CLLocationManager
     private var locationManager:CLLocationManager?
     private var userLocation:CLLocation {
         get {
             return locationManager!.location!
         }
     }
-    
     private var campsites = [Campsite]()
     fileprivate var campsiteForPass:Campsite?
-    
     fileprivate var catchedCampsiteName:String?
     fileprivate var catchedCampsiteImage:UIImage?
-    
     //PermissionScope
     private let pscopeOfLocation = PermissionScope()
-    
     //Subview
     fileprivate var campsiteView:CampsiteInfoView?
     fileprivate var userInfoEditView:UserInfoEditView?
     fileprivate var bonFireCreatView:FireBonFireView?
+    //detect which is the view now handle imagePick
     fileprivate var viewForHandleImagePick:UIView?
-    
     //Firebase Reference and Handle
     private var usersRef:DatabaseReference?
     private var campsitesRef:DatabaseReference?
@@ -72,8 +72,9 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         configureCoverImageView()
         configureLocationManager()
         configureDatabase()
-        observeAllCampsitesAndPinOnMap()
         configurePermissionScope()
+        
+        observeAllCampsitesAndPinOnMap()
         
         if Auth.auth().currentUser != nil {
             configureAuth()
@@ -180,15 +181,15 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     private func configureLocationManager() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.startUpdatingLocation()
         locationManager?.pausesLocationUpdatesAutomatically = true
     }
     
     private func configurePermissionScope() {
-        pscopeOfLocation.headerLabel.text = "Need Location"
-        pscopeOfLocation.bodyLabel.text = "🏝"
-        pscopeOfLocation.addPermission(LocationWhileInUsePermission(), message: "For all features, please enable BonFire to know where you are!")
+        pscopeOfLocation.headerLabel.text = Constants.PermissionScopeConstants.LocationWhileInUsePermission.header
+        pscopeOfLocation.bodyLabel.text = Constants.PermissionScopeConstants.LocationWhileInUsePermission.body
+        pscopeOfLocation.addPermission(LocationWhileInUsePermission(), message: Constants.PermissionScopeConstants.LocationWhileInUsePermission.message)
     }
     
     private func configureMapView() {
@@ -200,7 +201,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     private func configureCoverImageView() {
         coverImageView.isUserInteractionEnabled = false
         coverImageView.backgroundColor = UIColor.clear
-        coverImageView.alpha = 0.7
+        coverImageView.alpha = coverImageAlphe
     }
     
     //MARK: - PScope
@@ -240,7 +241,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
             campsiteAnnotations.append(pin)
             DispatchQueue.main.async {
                 self.mapView.addAnnotation(pin)
-                self.lightTheFier()
+                self.lightTheFire()
             }
         }
     }
@@ -376,7 +377,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         }
     }
     
-    fileprivate func lightTheFier() {
+    fileprivate func lightTheFire() {
         var points = [CGPoint]()
         let userPoint = mapView.convert(mapView.userLocation.coordinate, toPointTo: coverImageView)
         if isExtexndedBoundsContainsPoint(point: userPoint) {
@@ -439,8 +440,8 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     }
     
     fileprivate func fireTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true, block: { [weak self] _ in
-            self?.lightTheFier()
+        timer = Timer.scheduledTimer(withTimeInterval: lightMapTimeInterval, repeats: true, block: { [weak self] _ in
+            self?.lightTheFire()
         })
     }
     
@@ -497,7 +498,7 @@ extension MainMapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         invalidateTimer()
-        lightTheFier()
+        lightTheFire()
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
