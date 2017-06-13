@@ -9,15 +9,13 @@
 import UIKit
 import Firebase
 import FirebaseAuthUI
-import ReachabilitySwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var reachability: Reachability?
-    var internetAlert:UIAlertController?
     var firDatabaseRef:DatabaseReference!
+    var connectStateRef:DatabaseReference!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Use Firebase library to configure APIs
@@ -25,31 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        Database.database().isPersistenceEnabled = true
         firDatabaseRef = Database.database().reference()
         return true
-    }
-    
-    func startReachabilityNotifier() {
-        reachability = Reachability()
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
-        do {
-            try reachability?.startNotifier()
-        }catch {
-            print("Unable to start\nnotifier network.")
-        }
-        
-    }
-    
-    func stopReachabilityNotifier() {
-        reachability?.stopNotifier()
-        NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
-        reachability = nil
-    }
-    
-    func reachabilityChanged(_ note: Notification) {
-        if let reachability = note.object as? Reachability {
-            if !reachability.isReachable {
-                UtilityFunction.shared.alertUnreachable()
-            }
-        }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -68,11 +41,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        stopReachabilityNotifier()
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        startReachabilityNotifier()
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

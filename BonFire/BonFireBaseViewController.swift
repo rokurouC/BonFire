@@ -8,6 +8,7 @@
 
 import UIKit
 import PermissionScope
+import ReachabilitySwift
 
 class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let pscopeCamera:PermissionScope = {
@@ -24,9 +25,64 @@ class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelega
         pscope.addPermission(PhotosPermission(), message: Constants.PermissionScopeConstants.PhotosPermission.message)
         return pscope
     }()
-    
+    var reachability: Reachability?
     var currentUser:BonFireUser?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        reachability = Reachability()
+        startReachabilityNotifier()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startReachabilityNotifier()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopReachabilityNotifier()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let isReachable = reachability?.isReachable, !isReachable {
+            UtilityFunction.shared.alertGetUserLocationFailed()
+        }
+    }
+    
+    func startReachabilityNotifier() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
+        do {
+            try reachability?.startNotifier()
+        }catch {
+            print("Unable to start\nnotifier network.")
+        }
+    }
+    
+    func stopReachabilityNotifier() {
+        reachability?.stopNotifier()
+        NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
+    }
+    
+    @objc private func reachabilityChanged(_ note: Notification) {
+        if let reachability = note.object as? Reachability {
+            if !reachability.isReachable {
+                reachabilityUnreachable()
+            }else {
+                reachabilityReachable()
+            }
+        }
+    }
+    //HandleReachabilityChanged
+    func reachabilityReachable() {
+        //subclass must override
+        fatalError("BonFireBaseViewController Subclass Must Override")
+    }
+    func reachabilityUnreachable() {
+        //subclass must override
+        UtilityFunction.shared.alertUnreachable()
+    }
     
     func handlePhotoSelector() {
         let selectAlert = UIAlertController(title: "Pick A Photo", message: nil, preferredStyle: .actionSheet)
@@ -51,7 +107,7 @@ class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelega
         self.present(selectAlert, animated: true, completion: nil)
     }
     
-    func prestentImagePickerControllerWithType(_ soruceType:UIImagePickerControllerSourceType) {
+    private func prestentImagePickerControllerWithType(_ soruceType:UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = soruceType
@@ -59,8 +115,8 @@ class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelega
         self.present(imagePicker, animated: true, completion: nil)
     }
     
+    //UIImagePickerControllerDelegate
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
 }

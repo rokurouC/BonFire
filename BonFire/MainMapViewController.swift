@@ -62,8 +62,8 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     //Firebase Reference and Handle
     private var usersRef:DatabaseReference?
     private var campsitesRef:DatabaseReference?
-    fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
-    fileprivate var _campsitesHandle:DatabaseHandle!
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle?
+    fileprivate var _campsitesHandle:DatabaseHandle?
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -77,7 +77,9 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         observeAllCampsitesAndPinOnMap()
         
         if Auth.auth().currentUser != nil {
-            configureAuth()
+            if reachability?.isReachable == true {
+                configureAuth()
+            }
         }
     }
     
@@ -86,11 +88,27 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         checkUserIsFirstUse()
     }
     
-    deinit {
-        Auth.auth().removeStateDidChangeListener(_authHandle)
-        campsitesRef?.removeObserver(withHandle: _campsitesHandle)
+    private func detachFirebaseRef() {
+        if let authHandle = _authHandle, let campsitesHandle = _campsitesHandle {
+            Auth.auth().removeStateDidChangeListener(authHandle)
+            campsitesRef?.removeObserver(withHandle: campsitesHandle)
+        }
     }
     
+    deinit {
+        detachFirebaseRef()
+    }
+    //HandleReachabilityChanged
+    override func reachabilityReachable() {
+        //connect
+        if let authHandle = _authHandle {
+            Auth.auth().removeStateDidChangeListener(authHandle)
+        }
+        if Auth.auth().currentUser != nil {
+            configureAuth()
+        }
+    }
+
     //When first time use, guild the user how to use.
     private func checkUserIsFirstUse() {
         guard let isFirstUse = UserDefaults.standard.object(forKey: Constants.isUserFirstUseAppKey) as? Bool, isFirstUse == false  else {
@@ -105,28 +123,37 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         let poptipFirst = PopTip()
         let poptipSecond = PopTip()
         let poptipThird = PopTip()
+        let poptipFourth = PopTip()
         poptipFirst.bubbleColor = .brown
         poptipSecond.bubbleColor = .brown
         poptipThird.bubbleColor = .brown
+        poptipFourth.bubbleColor = .brown
         poptipFirst.actionAnimation = .pulse(1.1)
-        poptipSecond.actionAnimation = .bounce(2)
+        poptipSecond.actionAnimation = .pulse(1.1)
         poptipThird.actionAnimation = .bounce(2)
+        poptipFourth.actionAnimation = .bounce(2)
         poptipFirst.shouldDismissOnTapOutside = false
         poptipSecond.shouldDismissOnTapOutside = false
         poptipThird.shouldDismissOnTapOutside = false
+        poptipFourth.shouldDismissOnTapOutside = false
         poptipSecond.shouldDismissOnTap = true
         poptipFirst.shouldDismissOnTap = true
         poptipThird.shouldDismissOnTap = true
+        poptipFourth.shouldDismissOnTap = true
+        
         poptipFirst.dismissHandler = {(_) in
-            poptipSecond.show(text: "Then check the campsites you've joined in here.\n< Tap me to next >", direction: .up, maxWidth: 150, in: self.view, from: self.campsiteListButton.frame)
+            poptipSecond.show(text: Constants.PoptipConstants.secondPoptip, direction: .none, maxWidth: 150, in: self.view, from: self.view.frame)
         }
         poptipThird.dismissHandler = {(_) in
+            poptipFourth.show(text: Constants.PoptipConstants.fourthPoptip, direction: .up, maxWidth: 150, in: self.view, from: self.bonFireButton.frame)
+        }
+        poptipFourth.dismissHandler = {(_) in
             self.setUIEnableWhenFirstUse(true)
         }
         poptipSecond.dismissHandler = {(_) in
-            poptipThird.show(text: "Or you can camp your own campsite and let people join you!\n< Tap me to start! >", direction: .up, maxWidth: 150, in: self.view, from: self.bonFireButton.frame)
+            poptipThird.show(text: Constants.PoptipConstants.thirdPoptip, direction: .up, maxWidth: 150, in: self.view, from: self.campsiteListButton.frame)
         }
-        poptipFirst.show(text: "Welcome to BonFire! You can found campsites around the world on the map and tap to join them.\n< Tap me to next >", direction: .none, maxWidth: 150, in: view, from: view.frame)
+        poptipFirst.show(text: Constants.PoptipConstants.firstPoptip, direction: .none, maxWidth: 150, in: view, from: view.frame)
     }
     
     private func setUIEnableWhenFirstUse(_ enable:Bool) {
@@ -369,7 +396,10 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     }
     
     private func createBonFire() {
-        
+        guard let isReachable = reachability?.isReachable, isReachable == true else {
+            UtilityFunction.shared.alertUnreachable()
+            return
+        }
         FirebaseClient.sharedInstance.createCampsiteWithUser(user: currentUser!, campsiteName: catchedCampsiteName!, userLocation: userLocation, profileImage:catchedCampsiteImage!) { (campsite) in
             self.campsiteForPass = campsite
             DispatchQueue.main.async {
@@ -382,9 +412,11 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     
     fileprivate func lightTheFire() {
         var points = [CGPoint]()
-        let userPoint = mapView.convert(mapView.userLocation.coordinate, toPointTo: coverImageView)
-        if isExtexndedBoundsContainsPoint(point: userPoint) {
-            points.append(userPoint)
+        if let userLoaction = locationManager?.location {
+            let point = mapView.convert(userLoaction.coordinate, toPointTo: coverImageView)
+            if isExtexndedBoundsContainsPoint(point: point) {
+                points.append(point)
+            }
         }
         for pin in campsiteAnnotations {
             let point = mapView.convert(pin.coordinate, toPointTo: coverImageView)
@@ -575,12 +607,20 @@ extension MainMapViewController:CampsiteInfoViewDelegate {
     func didEnterCampsite() {
         switch self.campsiteView!.enterButton.currentTitle! {
         case "Enter":
+            guard let isReachable = reachability?.isReachable, isReachable == true else {
+                UtilityFunction.shared.alertUnreachable()
+                return
+            }
             FirebaseClient.sharedInstance.updateUserCampsiteLastMessageAndBadge(user: currentUser!, campsite: campsiteForPass!, isViewed: true, completion: { (isUpdateSuccedd) in
                 if isUpdateSuccedd {
                     self.presentCampsiteListVC()
                 }
             })
         case "Join" :
+            guard let isReachable = reachability?.isReachable, isReachable == true else {
+                UtilityFunction.shared.alertUnreachable()
+                return
+            }
             FirebaseClient.sharedInstance.setUserForMemberOfCampsiteWithId(user: currentUser!, campsite: campsiteForPass!) {
                 self.presentCampsiteListVC()
             }
@@ -621,7 +661,12 @@ extension MainMapViewController:UserInfoEditViewDelegate {
             handlePhotoSelector()
         }
     }
+    //edit feature not open
     func userInfoEditViewInfoDidSave(info: InfoStruct) {
+        guard let isReachable = reachability?.isReachable, isReachable == true else {
+            UtilityFunction.shared.alertUnreachable()
+            return
+        }
         FirebaseClient.sharedInstance.uploadAvatarImage(image: info.avatar, quality: 0.1) { (downloadUrl) in
             if let userId = FirebaseClient.sharedInstance.currentUser?.uid, let email = FirebaseClient.sharedInstance.currentUser?.email {
                 FirebaseClient.sharedInstance.updateUserOnDatabaseWithUserId(userId: userId, email: email, displayName: info.displayName, about: info.about, avatarUrl: downloadUrl, completion: { (user) in
@@ -632,6 +677,10 @@ extension MainMapViewController:UserInfoEditViewDelegate {
         }
     }
     func userInfoEditViewInfoDidCreating(info: InfoStruct) {
+        guard let isReachable = reachability?.isReachable, isReachable == true else {
+            UtilityFunction.shared.alertUnreachable()
+            return
+        }
         let activity = UtilityFunction.shared.activityIndicatorViewWithCnterFrame(style: .gray, targetView: self.userInfoEditView!)
         activity.startAnimating()
         FirebaseClient.sharedInstance.uploadAvatarImage(image: info.avatar, quality: 0.1) { (downloadUrl) in

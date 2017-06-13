@@ -20,9 +20,9 @@ class FirebaseClient:NSObject {
     private let campsitesRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.campsites)
     private let messagesRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.messages)
     private let usersRef = (UIApplication.shared.delegate as! AppDelegate).firDatabaseRef.child(Constants.FIRDatabaseConstants.users)
-    
     ///User who login and using App
     var currentUser:User?
+
     
     ///if signed in return an User ; if signed out user be nil, and controller has to present authViewController
     func addAuthStatusDidChangeListener(completion:@escaping (_ user:BonFireUser?, _ isJustCreate:Bool, _ isSignedIn:Bool, _ authViewController:UINavigationController?) -> Void) -> AuthStateDidChangeListenerHandle {
@@ -52,8 +52,22 @@ class FirebaseClient:NSObject {
         return authHandle
     }
     
+    func getUserInfoWithId(userId:String, completion:@escaping (_ user:BonFireUser?) -> Void) {
+        usersRef.child(userId).keepSynced(true) //test
+        self.usersRef.child(userId).observeSingleEvent(of: .value, with: { (userInfoSnapshot) in
+            guard userInfoSnapshot.exists() else {
+                completion(nil)
+                return
+            }
+            let userDic = userInfoSnapshot.value as! [String:Any]
+            let user = BonFireUser(userDic: userDic)
+            completion(user)
+        })
+    }
+    
     func observeAllCampsitesAdd(completion:@escaping (_ campsite:Campsite?) ->Void) -> DatabaseHandle {
         let _campsitesHandle:DatabaseHandle!
+        campsitesRef.keepSynced(true)
         _campsitesHandle = campsitesRef.observe(.childAdded, with: { (campsiteSnapShot) in
             guard campsiteSnapShot.exists() else {
                 completion(nil)
@@ -133,6 +147,7 @@ class FirebaseClient:NSObject {
         if isViewed {
             updateValue[Constants.FIRDatabaseConstants.Campsite.lastViewedTime] = Date.timeIntervalSinceReferenceDate
         }
+        
         usersRef.child(user.uId).child(Constants.FIRDatabaseConstants.User.campsites).child(campsite.id).updateChildValues(updateValue) { (error, _) in
             guard error == nil else {
                 print("Update Badge failed:\(error!.localizedDescription)")
@@ -180,19 +195,6 @@ class FirebaseClient:NSObject {
             
         })
         return _usercampsitesRefHandle
-    }
-    
-    func getUserInfoWithId(userId:String, completion:@escaping (_ user:BonFireUser?) -> Void) {
-        usersRef.child(userId).keepSynced(true) //test
-        usersRef.child(userId).observeSingleEvent(of: .value, with: { (userInfoSnapshot) in
-            guard userInfoSnapshot.exists() else {
-                completion(nil)
-                return
-            }
-            let userDic = userInfoSnapshot.value as! [String:Any]
-            let user = BonFireUser(userDic: userDic)
-            completion(user)
-        })
     }
     
     ///call when user use App first time

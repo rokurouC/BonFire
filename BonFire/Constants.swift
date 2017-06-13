@@ -93,5 +93,11 @@ struct Constants {
             static let message = "Check the network and come back later."
         }
     }
+    struct PoptipConstants {
+        static let firstPoptip = "Welcome to BonFire!\nTo have fun in BonFire, please connect to internet when using App.\n< Tap me to next >"
+        static let secondPoptip = "You can found campsites around the world on the map and tap to join them.\n< Tap me to next >"
+        static let thirdPoptip = "Then check the campsites you've joined in here.\n< Tap me to next >"
+        static let fourthPoptip = "Or you can camp your own campsite and let people join you!\n< Tap me to start! >"
+    }
 }
 

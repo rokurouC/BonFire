@@ -13,13 +13,13 @@ protocol CampsiteListVCDelegate:class {
     func CampsiteListsTableViewController(didUpdateSumBadge badge:Int)
 }
 
-class CampsiteListsTableViewController: UITableViewController {
+class CampsiteListsTableViewController: BonFireBaseViewController, UITableViewDataSource, UITableViewDelegate {
     //MARK: - Property
     weak var delegate:CampsiteListVCDelegate?
-    var currentUser: BonFireUser?
     var campsites = [Campsite]()
     var nowPresentedCampsite:Campsite?
     
+    @IBOutlet var tableView: UITableView!
     var databaseRefsAndHandles = [(DatabaseReference,DatabaseHandle)]()
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -35,7 +35,10 @@ class CampsiteListsTableViewController: UITableViewController {
     deinit {
         removeAllObserver()
     }
-    
+    override func reachabilityReachable() {
+        
+    }
+
     private func checkIfPushToChatVCIsNeed() {
         if nowPresentedCampsite != nil {
             pushToChatVC(campsite: nowPresentedCampsite!, animated: false)
@@ -132,12 +135,11 @@ class CampsiteListsTableViewController: UITableViewController {
     
     //MARK: - Table view data source
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return campsites.count
     }
     
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let campsite = campsites[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "CampsiteListTableViewCell", for: indexPath) as! CampsiteListTableViewCell
         cell.setup(campsite: campsite)
@@ -145,7 +147,7 @@ class CampsiteListsTableViewController: UITableViewController {
     }
     
     //MARK: - Table delegate
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let campsite = campsites[indexPath.row]
         nowPresentedCampsite = campsite
         pushToChatVC(campsite: campsite, animated: true)

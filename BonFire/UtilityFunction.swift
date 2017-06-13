@@ -24,38 +24,44 @@ class UtilityFunction {
     
     func alertUnreachable() {
         let alert = UIAlertController(title: Constants.AlertConstants.UnreachableAlert.title, message: Constants.AlertConstants.UnreachableAlert.message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Constants.confirm, style: .default) { (_) in
+        let ok = UIAlertAction(title: Constants.confirm, style: .default) { [unowned self](_) in
             self.internetUnreachableAlert = nil
         }
         alert.addAction(ok)
         if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, internetUnreachableAlert == nil {
             internetUnreachableAlert = alert
-            visibleVC.present(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                visibleVC.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
     func alertImageLoadFailed() {
         let alert = UIAlertController(title: Constants.AlertConstants.LoadFailedAlert.title, message: Constants.AlertConstants.LoadFailedAlert.message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Constants.confirm, style: .default){ (_) in
+        let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in
             self.imageLoadFailedAlert = nil
         }
 
         alert.addAction(ok)
         if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, imageLoadFailedAlert == nil {
             imageLoadFailedAlert = alert
-            visibleVC.present(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                visibleVC.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
     func alertGetUserLocationFailed() {
         let alert = UIAlertController(title: Constants.AlertConstants.GetUserLocationFailedAlert.title, message: Constants.AlertConstants.GetUserLocationFailedAlert.message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Constants.confirm, style: .default){ (_) in
+        let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in
             self.getUserLocationFailedAlert = nil
         }
         alert.addAction(ok)
         if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, getUserLocationFailedAlert == nil {
             getUserLocationFailedAlert = alert
-            visibleVC.present(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                visibleVC.present(alert, animated: true, completion: nil)
+            }
         }
     }
 }
