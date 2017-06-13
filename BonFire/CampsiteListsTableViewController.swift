@@ -29,14 +29,13 @@ class CampsiteListsTableViewController: BonFireBaseViewController, UITableViewDa
         tableView.rowHeight = UITableViewAutomaticDimension
         getAllCampsitesOfUserAdd()
         checkIfPushToChatVCIsNeed()
-        
     }
-    
+    //這裡是營地列表，沒網路時
     deinit {
         removeAllObserver()
     }
     override func reachabilityReachable() {
-        
+        //Must override, but to be determined
     }
 
     private func checkIfPushToChatVCIsNeed() {
@@ -50,7 +49,6 @@ class CampsiteListsTableViewController: BonFireBaseViewController, UITableViewDa
                     }
                 })
             }
-            
         }
     }
     
@@ -61,9 +59,9 @@ class CampsiteListsTableViewController: BonFireBaseViewController, UITableViewDa
     }
     
     private func showNoCampsitesAlert() {
-        let alert = UIAlertController(title: "Hey", message: "You haven't joined any campsite yet, how about going back to map and choose or create one?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "CANCEL", style: .default, handler: nil)
-        let OK = UIAlertAction(title: "OK", style: .default) { (_) in
+        let alert = UIAlertController(title: Constants.AlertConstants.NoCampsitesAlert.title, message: Constants.AlertConstants.NoCampsitesAlert.message, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: Constants.cancel, style: .default, handler: nil)
+        let OK = UIAlertAction(title: Constants.confirm, style: .default) { (_) in
             if let NVC = self.navigationController {
                 NVC.dismiss(animated: true, completion: nil)
             }

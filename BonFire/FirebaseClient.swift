@@ -147,7 +147,7 @@ class FirebaseClient:NSObject {
         if isViewed {
             updateValue[Constants.FIRDatabaseConstants.Campsite.lastViewedTime] = Date.timeIntervalSinceReferenceDate
         }
-        
+        usersRef.child(user.uId).child(Constants.FIRDatabaseConstants.User.campsites).child(campsite.id).keepSynced(true)
         usersRef.child(user.uId).child(Constants.FIRDatabaseConstants.User.campsites).child(campsite.id).updateChildValues(updateValue) { (error, _) in
             guard error == nil else {
                 print("Update Badge failed:\(error!.localizedDescription)")
@@ -317,7 +317,14 @@ class FirebaseClient:NSObject {
                                        Constants.FIRDatabaseConstants.Message.timestamp:Date.timeIntervalSinceReferenceDate,
                                        Constants.FIRDatabaseConstants.Message.displayUserName:user.appDisplayName,
                                        Constants.FIRDatabaseConstants.Message.avatarUrl:user.avatarUrl] as [String : Any]
-        rootRef?.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
+        let lastMessageRef = rootRef?.child(Constants.FIRDatabaseConstants.campsites).child(campsiteId).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
+        lastMessageRef?.keepSynced(true)
+        lastMessageRef?.updateChildValues(campsitesMessageRefData)
+        let messageIdRef = rootRef?.child(Constants.FIRDatabaseConstants.messages).child(campsiteId).child(messageId)
+        messageIdRef?.keepSynced(true)
+        messageIdRef?.updateChildValues(campsitesMessageRefData)
+        
+//        rootRef?.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
     }
     
     func addImageMessageToCampsite(user:BonFireUser, image:UIImage, campsiteId:String, quality:CGFloat) {
@@ -411,6 +418,7 @@ class FirebaseClient:NSObject {
         let startListenTime = Date.timeIntervalSinceReferenceDate
         let campsiteLastMessagesRef = campsitesRef.child(campsiteId).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
         var campsiteMessagesHandle:DatabaseHandle!
+        campsiteLastMessagesRef.keepSynced(true)
         campsiteMessagesHandle = campsiteLastMessagesRef.observe(.value, with: { (messageSnapShot) in
             guard messageSnapShot.exists() else {
                 completion(nil)
@@ -434,7 +442,7 @@ class FirebaseClient:NSObject {
         for campsite in campsites {
             var campsiteMessagesHandle:DatabaseHandle!
             let lastMessageRef = campsitesRef.child(campsite.id).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
-            
+            lastMessageRef.keepSynced(true)
             campsiteMessagesHandle = lastMessageRef.observe(.value, with: { (messageSnapShot) in
                 guard messageSnapShot.exists() else {
                     completion(nil)

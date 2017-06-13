@@ -46,10 +46,29 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+        updateUserCampsiteLastMessageAndBadge()
+    }
+    
+    override func reachabilityReachable() {
+        //Must override, but to be determined
     }
     
     deinit {
         campsitesLastMessageRef?.removeObserver(withHandle: _campsiteLastMessageHandle)
+    }
+    
+    private func updateUserCampsiteLastMessageAndBadge() {
+        if let user = currentUser, var campsite = currentCampsite {
+            campsite.badgeNumber = 0
+            if messages.count > 0 , let lastMessage = messages.last{
+                campsite.lastMessage = lastMessage
+            }
+            FirebaseClient.sharedInstance.updateUserCampsiteLastMessageAndBadge(user: user, campsite: campsite, isViewed: true, completion: { (isUpdatedSuccess) in
+                if isUpdatedSuccess {
+                    print("UpdatedSuccess")
+                }
+            })
+        }
     }
     
     private func configureDatabase() {
@@ -99,19 +118,9 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction private func back(_ sender: Any) {
-        if let user = currentUser, var campsite = currentCampsite {
-            campsite.badgeNumber = 0
-            if messages.count > 0 , let lastMessage = messages.last{
-                campsite.lastMessage = lastMessage
-            }
-            FirebaseClient.sharedInstance.updateUserCampsiteLastMessageAndBadge(user: user, campsite: campsite, isViewed: true, completion: { (isUpdatedSuccess) in
-                if isUpdatedSuccess {
-                    if let NVC = self.navigationController, let vc = self.navigationController?.viewControllers.first as? CampsiteListsTableViewController {
-                        vc.nowPresentedCampsite = nil
-                        NVC.popViewController(animated: true)
-                    }
-                }
-            })
+        if let NVC = self.navigationController, let vc = self.navigationController?.viewControllers.first as? CampsiteListsTableViewController {
+            vc.nowPresentedCampsite = nil
+            NVC.popViewController(animated: true)
         }
     }
     @IBAction private func tapTableview(_ sender: Any) {

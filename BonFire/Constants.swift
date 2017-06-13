@@ -11,6 +11,7 @@ import Foundation
 struct Constants {
     static let isUserFirstUseAppKey = "isUserFirstUseAppKey"
     static let confirm = "OK"
+    static let cancel = "CANCEL"
     struct FIRDatabaseConstants {
         static let users = "users"
         static let campsites = "campsites"
@@ -91,6 +92,10 @@ struct Constants {
         struct GetUserLocationFailedAlert {
             static let title = "Get Location failed!"
             static let message = "Check the network and come back later."
+        }
+        struct NoCampsitesAlert {
+            static let title = "Hey"
+            static let message = "You haven't joined any campsite yet, how about going back to map and choose or create one?"
         }
     }
     struct PoptipConstants {
