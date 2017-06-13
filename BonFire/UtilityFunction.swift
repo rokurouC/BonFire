@@ -14,6 +14,7 @@ class UtilityFunction {
     private var internetUnreachableAlert:UIAlertController?
     private var imageLoadFailedAlert:UIAlertController?
     private var getUserLocationFailedAlert:UIAlertController?
+    private var unableSendImageMessageWithoutConnectionAlert:UIAlertController?
 
     func activityIndicatorViewWithCnterFrame(style:UIActivityIndicatorViewStyle, targetView:UIView) -> UIActivityIndicatorView {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: style)
@@ -59,6 +60,20 @@ class UtilityFunction {
         alert.addAction(ok)
         if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, getUserLocationFailedAlert == nil {
             getUserLocationFailedAlert = alert
+            DispatchQueue.main.async {
+                visibleVC.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func alertUnableSendImageMessageWithoutConnection() {
+        let alert = UIAlertController(title: Constants.AlertConstants.UnableSendImageMessageWithoutConnectionAlert.title, message: Constants.AlertConstants.UnableSendImageMessageWithoutConnectionAlert.message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in
+            self.unableSendImageMessageWithoutConnectionAlert = nil
+        }
+        alert.addAction(ok)
+        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, unableSendImageMessageWithoutConnectionAlert == nil {
+            unableSendImageMessageWithoutConnectionAlert = alert
             DispatchQueue.main.async {
                 visibleVC.present(alert, animated: true, completion: nil)
             }

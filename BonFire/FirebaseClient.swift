@@ -214,7 +214,7 @@ class FirebaseClient:NSObject {
             })
         }
     }
-    
+    //updateUser info feature not open yet
     func updateUserOnDatabaseWithUserId(userId:String, email:String, displayName:String, about:String, avatarUrl:String, completion:@escaping (_ user:BonFireUser?) -> Void) {
         let userData = [Constants.FIRDatabaseConstants.User.uid:userId,
                         Constants.FIRDatabaseConstants.User.email:email,

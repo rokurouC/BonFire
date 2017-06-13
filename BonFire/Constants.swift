@@ -83,19 +83,23 @@ struct Constants {
     struct AlertConstants {
         struct UnreachableAlert {
             static let title = "Disconnect!"
-            static let message = "Check the network and come back later."
+            static let message = "Check the internet and come back later."
         }
         struct LoadFailedAlert {
             static let title = "Loading image failed!"
-            static let message = "Check the network and come back later."
+            static let message = "Check the internet and come back later."
         }
         struct GetUserLocationFailedAlert {
             static let title = "Get Location failed!"
-            static let message = "Check the network and come back later."
+            static let message = "Check the internet and come back later."
         }
         struct NoCampsitesAlert {
             static let title = "Hey"
             static let message = "You haven't joined any campsite yet, how about going back to map and choose or create one?"
+        }
+        struct UnableSendImageMessageWithoutConnectionAlert {
+            static let title = "Sorry"
+            static let message = "You can't sent photo to others without connection, please check the internet and come back later."
         }
     }
     struct PoptipConstants {
