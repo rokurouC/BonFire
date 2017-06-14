@@ -46,7 +46,6 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
-        updateUserCampsiteLastMessageAndBadge()
     }
     
     override func reachabilityReachable() {
@@ -65,7 +64,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
             }
             FirebaseClient.sharedInstance.updateUserCampsiteLastMessageAndBadge(user: user, campsite: campsite, isViewed: true, completion: { (isUpdatedSuccess) in
                 if isUpdatedSuccess {
-                    print("UpdatedSuccess")
+                    //UpdatedSuccess
                 }
             })
         }
@@ -80,9 +79,16 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
             guard messages != nil else {
                 self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { (message) in
                     guard message != nil else { return }
+                    guard let lastMessage = messages?.last, lastMessage.messageId != message?.messageId else {
+                        return
+                    }
                     self.messages.append(message!)
                     self.chatTableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
-                    self.scrollToBottomMessage()
+                    DispatchQueue.main.async {
+                        self.scrollToBottomMessage()
+                    }
+                    //test
+                    self.updateUserCampsiteLastMessageAndBadge()
                 })
                 return
             }
@@ -92,11 +98,16 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
                 self.scrollToBottomMessage()
                 self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { [unowned self] (message) in
                     guard message != nil else { return }
+                    guard let lastMessage = messages?.last, lastMessage.messageId != message?.messageId else {
+                        return
+                    }
                     self.messages.append(message!)
                     self.chatTableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
                     DispatchQueue.main.async {
                         self.scrollToBottomMessage()
                     }
+                    //test
+                    self.updateUserCampsiteLastMessageAndBadge()
                 })
             }
         }
@@ -115,7 +126,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     
     @IBAction private func sendImage(_ sender: Any) {
         guard let isReachable = reachability?.isReachable, isReachable else {
-            //Can't sent image without connection, featurenot open yet
+            //Can't sent image without connection, feature not open yet
             UtilityFunction.shared.alert(.unableSendImageMessageWithoutConnection)
             return
         }

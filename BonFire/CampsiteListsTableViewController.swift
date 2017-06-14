@@ -30,7 +30,6 @@ class CampsiteListsTableViewController: BonFireBaseViewController, UITableViewDa
         getAllCampsitesOfUserAdd()
         checkIfPushToChatVCIsNeed()
     }
-    //這裡是營地列表，沒網路時
     deinit {
         removeAllObserver()
     }
