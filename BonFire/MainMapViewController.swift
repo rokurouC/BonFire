@@ -391,6 +391,10 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     fileprivate func promptToLogin() {
         let loginAlert = UIAlertController(title: "Need Login", message: "To have fun in BonFire, you need to log in!🙋‍♂️🙋", preferredStyle: .alert)
         let loginAction = UIAlertAction(title: "Login!", style: .default) { (_) in
+            guard let isReachable = self.reachability?.isReachable, isReachable else {
+                UtilityFunction.shared.alert(.needConnectinoToLogin)
+                return
+            }
             self.configureAuth()
         }
         let noAction = UIAlertAction(title: "No, thanks.", style: .default, handler: nil)
