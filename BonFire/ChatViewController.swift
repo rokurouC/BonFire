@@ -116,7 +116,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     @IBAction private func sendImage(_ sender: Any) {
         guard let isReachable = reachability?.isReachable, isReachable else {
             //Can't sent image without connection, featurenot open yet
-            UtilityFunction.shared.alertUnreachable()
+            UtilityFunction.shared.alert(.unableSendImageMessageWithoutConnection)
             return
         }
         handlePhotoSelector()

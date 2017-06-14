@@ -11,10 +11,7 @@ import UIKit
 class UtilityFunction {
     
     static let shared = UtilityFunction()
-    private var internetUnreachableAlert:UIAlertController?
-    private var imageLoadFailedAlert:UIAlertController?
-    private var getUserLocationFailedAlert:UIAlertController?
-    private var unableSendImageMessageWithoutConnectionAlert:UIAlertController?
+    private var alertNowPresennt:UIAlertController?
 
     func activityIndicatorViewWithCnterFrame(style:UIActivityIndicatorViewStyle, targetView:UIView) -> UIActivityIndicatorView {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: style)
@@ -22,61 +19,50 @@ class UtilityFunction {
         targetView.addSubview(activity)
         return activity
     }
-    
-    func alertUnreachable() {
-        let alert = UIAlertController(title: Constants.AlertConstants.UnreachableAlert.title, message: Constants.AlertConstants.UnreachableAlert.message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Constants.confirm, style: .default) { [unowned self](_) in
-            self.internetUnreachableAlert = nil
-        }
-        alert.addAction(ok)
-        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, internetUnreachableAlert == nil {
-            internetUnreachableAlert = alert
-            DispatchQueue.main.async {
-                visibleVC.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    func alertImageLoadFailed() {
-        let alert = UIAlertController(title: Constants.AlertConstants.LoadFailedAlert.title, message: Constants.AlertConstants.LoadFailedAlert.message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in
-            self.imageLoadFailedAlert = nil
-        }
 
-        alert.addAction(ok)
-        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, imageLoadFailedAlert == nil {
-            imageLoadFailedAlert = alert
-            DispatchQueue.main.async {
-                visibleVC.present(alert, animated: true, completion: nil)
-            }
-        }
+    enum Alert {
+        case internetUnreachable
+        case imageLoadFailed
+        case getUserLocationFailed
+        case unableSendImageMessageWithoutConnection
+        case unableCreatCampsiteWithoutConnectionAlert
+        case needConnectinoToLogin
     }
     
-    func alertGetUserLocationFailed() {
-        let alert = UIAlertController(title: Constants.AlertConstants.GetUserLocationFailedAlert.title, message: Constants.AlertConstants.GetUserLocationFailedAlert.message, preferredStyle: .alert)
+    func alert(_ type:Alert) {
+        var title:String!
+        var message:String!
+        switch type {
+        case .internetUnreachable:
+            title = Constants.AlertConstants.UnreachableAlert.title
+            message = Constants.AlertConstants.UnreachableAlert.message
+        case .imageLoadFailed:
+            title = Constants.AlertConstants.LoadFailedAlert.title
+            message = Constants.AlertConstants.LoadFailedAlert.message
+        case .getUserLocationFailed:
+            title = Constants.AlertConstants.GetUserLocationFailedAlert.title
+            message = Constants.AlertConstants.GetUserLocationFailedAlert.message
+        case .unableSendImageMessageWithoutConnection:
+            title = Constants.AlertConstants.UnableSendImageMessageWithoutConnectionAlert.title
+            message = Constants.AlertConstants.UnableSendImageMessageWithoutConnectionAlert.message
+        case .unableCreatCampsiteWithoutConnectionAlert:
+            title = Constants.AlertConstants.UnableCreatCampsiteWithoutConnectionAlert.title
+            message = Constants.AlertConstants.UnableCreatCampsiteWithoutConnectionAlert.message
+        case .needConnectinoToLogin:
+            title = Constants.AlertConstants.NeedConnectionToLogin.title
+            message = Constants.AlertConstants.NeedConnectionToLogin.message
+        }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in
-            self.getUserLocationFailedAlert = nil
+            self.alertNowPresennt = nil
         }
         alert.addAction(ok)
-        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, getUserLocationFailedAlert == nil {
-            getUserLocationFailedAlert = alert
+        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, alertNowPresennt == nil {
+            alertNowPresennt = alert
             DispatchQueue.main.async {
                 visibleVC.present(alert, animated: true, completion: nil)
             }
         }
-    }
-    
-    func alertUnableSendImageMessageWithoutConnection() {
-        let alert = UIAlertController(title: Constants.AlertConstants.UnableSendImageMessageWithoutConnectionAlert.title, message: Constants.AlertConstants.UnableSendImageMessageWithoutConnectionAlert.message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in
-            self.unableSendImageMessageWithoutConnectionAlert = nil
-        }
-        alert.addAction(ok)
-        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, unableSendImageMessageWithoutConnectionAlert == nil {
-            unableSendImageMessageWithoutConnectionAlert = alert
-            DispatchQueue.main.async {
-                visibleVC.present(alert, animated: true, completion: nil)
-            }
-        }
+        
     }
 }

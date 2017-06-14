@@ -284,7 +284,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
             mapView.setRegion(region, animated: true)
         }else {
             //can't get user location, maybe lose connect
-            UtilityFunction.shared.alertGetUserLocationFailed()
+            UtilityFunction.shared.alert(.getUserLocationFailed)
         }
     }
     
@@ -326,7 +326,11 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         guard Auth.auth().currentUser != nil else {
             let notLoginAlert = UIAlertController(title: "You haven't logged in yet!", message: nil, preferredStyle: .alert)
             let login = UIAlertAction(title: "LOG IN", style: .default, handler: { (_) in
-                self.configureAuth()
+                if self.reachability?.isReachable == true {
+                    self.configureAuth()
+                }else {
+                    UtilityFunction.shared.alert(.needConnectinoToLogin)
+                }
             })
             notLoginAlert.addAction(login)
             notLoginAlert.addAction(cancel)
@@ -397,7 +401,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     
     private func createBonFire() {
         guard let isReachable = reachability?.isReachable, isReachable == true else {
-            UtilityFunction.shared.alertUnreachable()
+            UtilityFunction.shared.alert(.internetUnreachable)
             return
         }
         FirebaseClient.sharedInstance.createCampsiteWithUser(user: currentUser!, campsiteName: catchedCampsiteName!, userLocation: userLocation, profileImage:catchedCampsiteImage!) { (campsite) in
@@ -590,6 +594,11 @@ extension MainMapViewController:FireBonFireViewDelegate {
     func didFinishedFireABonFire(campsiteName: String, profileImage: UIImage) {
         catchedCampsiteName = campsiteName
         catchedCampsiteImage = profileImage
+        guard let isReachable = reachability?.isReachable, isReachable else {
+            //Can't creat campsite without connection, featurenot open yet
+            UtilityFunction.shared.alert(.unableCreatCampsiteWithoutConnectionAlert)
+            return
+        }
         checkLocationAuthorizedWithPScopeWhenCreateBonFire()
     }
     
@@ -608,7 +617,7 @@ extension MainMapViewController:CampsiteInfoViewDelegate {
         switch self.campsiteView!.enterButton.currentTitle! {
         case "Enter":
             guard let isReachable = reachability?.isReachable, isReachable == true else {
-                UtilityFunction.shared.alertUnreachable()
+                UtilityFunction.shared.alert(.internetUnreachable)
                 return
             }
             FirebaseClient.sharedInstance.updateUserCampsiteLastMessageAndBadge(user: currentUser!, campsite: campsiteForPass!, isViewed: true, completion: { (isUpdateSuccedd) in
@@ -618,7 +627,7 @@ extension MainMapViewController:CampsiteInfoViewDelegate {
             })
         case "Join" :
             guard let isReachable = reachability?.isReachable, isReachable == true else {
-                UtilityFunction.shared.alertUnreachable()
+                UtilityFunction.shared.alert(.internetUnreachable)
                 return
             }
             FirebaseClient.sharedInstance.setUserForMemberOfCampsiteWithId(user: currentUser!, campsite: campsiteForPass!) {
@@ -664,7 +673,7 @@ extension MainMapViewController:UserInfoEditViewDelegate {
     //edit feature not open
     func userInfoEditViewInfoDidSave(info: InfoStruct) {
         guard let isReachable = reachability?.isReachable, isReachable == true else {
-            UtilityFunction.shared.alertUnreachable()
+            UtilityFunction.shared.alert(.internetUnreachable)
             return
         }
         FirebaseClient.sharedInstance.uploadAvatarImage(image: info.avatar, quality: 0.1) { (downloadUrl) in
@@ -678,7 +687,7 @@ extension MainMapViewController:UserInfoEditViewDelegate {
     }
     func userInfoEditViewInfoDidCreating(info: InfoStruct) {
         guard let isReachable = reachability?.isReachable, isReachable == true else {
-            UtilityFunction.shared.alertUnreachable()
+            UtilityFunction.shared.alert(.internetUnreachable)
             return
         }
         let activity = UtilityFunction.shared.activityIndicatorViewWithCnterFrame(style: .gray, targetView: self.userInfoEditView!)

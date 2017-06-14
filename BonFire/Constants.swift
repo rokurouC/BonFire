@@ -98,8 +98,16 @@ struct Constants {
             static let message = "You haven't joined any campsite yet, how about going back to map and choose or create one?"
         }
         struct UnableSendImageMessageWithoutConnectionAlert {
-            static let title = "Sorry"
+            static let title = "Oops!"
             static let message = "You can't sent photo to others without connection, please check the internet and come back later."
+        }
+        struct UnableCreatCampsiteWithoutConnectionAlert {
+            static let title = "Oops!"
+            static let message = "You can't create campsite without connection, please check the internet and come back later."
+        }
+        struct NeedConnectionToLogin {
+            static let title = "Oops!"
+            static let message = "It's disconnected, please connect to internet to login."
         }
     }
     struct PoptipConstants {

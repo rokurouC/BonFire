@@ -47,7 +47,7 @@ class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let isReachable = reachability?.isReachable, !isReachable {
-            UtilityFunction.shared.alertGetUserLocationFailed()
+            UtilityFunction.shared.alert(.internetUnreachable)
         }
     }
     
@@ -81,7 +81,7 @@ class BonFireBaseViewController: UIViewController, UIImagePickerControllerDelega
     }
     func reachabilityUnreachable() {
         //subclass must override
-        UtilityFunction.shared.alertUnreachable()
+        UtilityFunction.shared.alert(.internetUnreachable)
     }
     
     func handlePhotoSelector() {
