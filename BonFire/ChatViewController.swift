@@ -75,41 +75,28 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     }
     
     private func getMessagesAndListenLastMessage() {
-        FirebaseClient.sharedInstance.getMessagesOfCampsiteWithId(user: currentUser!, campsiteId: currentCampsite!.id) { [unowned self](messages) in
-            guard messages != nil else {
-                self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { (message) in
-                    guard message != nil else { return }
-                    guard let lastMessage = messages?.last, lastMessage.messageId != message?.messageId else {
-                        return
-                    }
+        FirebaseClient.sharedInstance.getMessagesOfCampsiteWithId(user: currentUser!, campsiteId: currentCampsite!.id) { (messages) in
+            if let messagesReturn = messages {
+                self.messages = messagesReturn
+                DispatchQueue.main.async {
+                    self.chatTableView.reloadData()
+                    self.scrollToBottomMessage()
+                }
+            }
+            self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { [unowned self] (message) in
+                guard message != nil else { return }
+                if let lastMessage = self.messages.last, lastMessage.messageId != message?.messageId {
+                    return
+                }else {
                     self.messages.append(message!)
-                    self.chatTableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
                     DispatchQueue.main.async {
+                        self.chatTableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
                         self.scrollToBottomMessage()
                     }
                     //test
                     self.updateUserCampsiteLastMessageAndBadge()
-                })
-                return
-            }
-            self.messages = messages!
-            DispatchQueue.main.async {
-                self.chatTableView.reloadData()
-                self.scrollToBottomMessage()
-                self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { [unowned self] (message) in
-                    guard message != nil else { return }
-                    guard let lastMessage = messages?.last, lastMessage.messageId != message?.messageId else {
-                        return
-                    }
-                    self.messages.append(message!)
-                    self.chatTableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
-                    DispatchQueue.main.async {
-                        self.scrollToBottomMessage()
-                    }
-                    //test
-                    self.updateUserCampsiteLastMessageAndBadge()
-                })
-            }
+                }
+            })
         }
     }
     //MARK: - IBAction

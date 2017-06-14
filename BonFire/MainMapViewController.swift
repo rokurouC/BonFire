@@ -408,7 +408,15 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
             UtilityFunction.shared.alert(.internetUnreachable)
             return
         }
+        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        aiv.center = CGPoint(x: view.frame.width/2, y: view.frame.height/2)
+        view.addSubview(aiv)
+        view.isUserInteractionEnabled = false
+        aiv.startAnimating()
         FirebaseClient.sharedInstance.createCampsiteWithUser(user: currentUser!, campsiteName: catchedCampsiteName!, userLocation: userLocation, profileImage:catchedCampsiteImage!) { (campsite) in
+            aiv.stopAnimating()
+            aiv.removeFromSuperview()
+            self.view.isUserInteractionEnabled = true
             self.campsiteForPass = campsite
             DispatchQueue.main.async {
                 self.catchedCampsiteName = nil

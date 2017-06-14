@@ -430,8 +430,12 @@ class FirebaseClient:NSObject {
                 completion(nil)
                 return
             }
-            let message = Message(messageDic)
-            completion(message)
+            var message:Message?
+            message = Message(messageDic)
+            if let messageReturn = message {
+                completion(messageReturn)
+            }
+            
         })
         return campsiteMessagesHandle
     }
