@@ -15,6 +15,10 @@ A little funny iOS App for people around the world easy to chat by creating and 
 * The more campfires on the map, the more brighter the world is.
 
 ## Screenshots
+[screenshot01](screenshots/screenshot01.png)
+[screenshot02](screenshots/screenshot02.png)
+[screenshot03](screenshots/screenshot03.png)
+[screenshot04](screenshots/screenshot04.png)
 
 ## Prerequisites
 

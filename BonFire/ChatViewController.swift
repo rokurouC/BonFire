@@ -85,7 +85,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
             }
             self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { [unowned self] (message) in
                 guard message != nil else { return }
-                if let lastMessage = self.messages.last, lastMessage.messageId != message?.messageId {
+                if let lastMessage = self.messages.last, lastMessage.messageId == message?.messageId {
                     return
                 }else {
                     self.messages.append(message!)

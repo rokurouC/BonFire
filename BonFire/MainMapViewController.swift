@@ -42,11 +42,6 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     private var campsiteAnnotations = [CampsiteAnnotation]()
     //CLLocationManager
     private var locationManager:CLLocationManager?
-    private var userLocation:CLLocation {
-        get {
-            return locationManager!.location!
-        }
-    }
     private var campsites = [Campsite]()
     fileprivate var campsiteForPass:Campsite?
     fileprivate var catchedCampsiteName:String?
@@ -208,7 +203,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     private func configureLocationManager() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager?.startUpdatingLocation()
         locationManager?.pausesLocationUpdatesAutomatically = true
     }
@@ -404,7 +399,7 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
     }
     
     private func createBonFire() {
-        guard let isReachable = reachability?.isReachable, isReachable == true else {
+        guard let isReachable = reachability?.isReachable, isReachable else {
             UtilityFunction.shared.alert(.internetUnreachable)
             return
         }
@@ -413,6 +408,10 @@ class MainMapViewController: BonFireBaseViewController, UIGestureRecognizerDeleg
         view.addSubview(aiv)
         view.isUserInteractionEnabled = false
         aiv.startAnimating()
+        guard let userLocation = locationManager?.location else{
+            UtilityFunction.shared.alert(.getUserLocationFailed)
+            return
+        }
         FirebaseClient.sharedInstance.createCampsiteWithUser(user: currentUser!, campsiteName: catchedCampsiteName!, userLocation: userLocation, profileImage:catchedCampsiteImage!) { (campsite) in
             aiv.stopAnimating()
             aiv.removeFromSuperview()
