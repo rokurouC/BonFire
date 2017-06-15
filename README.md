@@ -8,17 +8,17 @@ A little funny iOS App for people around the world easy to chat by creating and 
 
 
 ## Features
-###Verson 1.0
+### Verson 1.0
 * For all features, Users have to connect to internet.
 * Users can create or join chat rooms(called campsites) around the world on the map to share something with people by login BonFire.  
 * Users can login with email, Google and Facebook account.
 * The more campfires on the map, the more brighter the world is.
 
 ## Screenshots
-[screenshot01](screenshots/screenshot01.png)
-[screenshot02](screenshots/screenshot02.png)
-[screenshot03](screenshots/screenshot03.png)
-[screenshot04](screenshots/screenshot04.png)
+![screenshot01](screenshots/screenshot01.png)
+![screenshot02](screenshots/screenshot02.png)
+![screenshot03](screenshots/screenshot03.png)
+![screenshot04](screenshots/screenshot04.png)
 
 ## Prerequisites
 
