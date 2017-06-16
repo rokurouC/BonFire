@@ -113,6 +113,10 @@ struct Constants {
             static let title = "Note."
             static let message = "You has sent an message offline, message will upload and everyone in the campsite can read when internet reconnect."
         }
+        struct UploadImageFailed {
+            static let title = "Error"
+            static let message = "Upload photo failed, please check the internet and try later."
+        }
     }
     struct PoptipConstants {
         static let firstPoptip = "Welcome to BonFire!\nTo have fun in BonFire, please connect to internet when using App.\n< Tap me to next >"

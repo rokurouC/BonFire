@@ -41,6 +41,7 @@
 		1727ED081EB30ABA000AE694 /* FireBonFireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727ED071EB30ABA000AE694 /* FireBonFireView.swift */; };
 		1727ED0A1EB30AF4000AE694 /* FireBonFireView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1727ED091EB30AF4000AE694 /* FireBonFireView.xib */; };
 		175CF1571ED5BF8A00DDE7CE /* UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175CF1561ED5BF8A00DDE7CE /* UIWindow.swift */; };
+		17AEB1EE1EF43F390073FEB7 /* BonFireImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AEB1ED1EF43F390073FEB7 /* BonFireImageView.swift */; };
 		17DFD4901EB5A81700209E23 /* CampsiteListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DFD48F1EB5A81700209E23 /* CampsiteListsTableViewController.swift */; };
 		E41B2D585DEE89FA250B1505 /* Pods_BonFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8122201D49A68097BFDF4554 /* Pods_BonFire.framework */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		1727ED071EB30ABA000AE694 /* FireBonFireView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBonFireView.swift; sourceTree = "<group>"; };
 		1727ED091EB30AF4000AE694 /* FireBonFireView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FireBonFireView.xib; sourceTree = "<group>"; };
 		175CF1561ED5BF8A00DDE7CE /* UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindow.swift; sourceTree = "<group>"; };
+		17AEB1ED1EF43F390073FEB7 /* BonFireImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonFireImageView.swift; sourceTree = "<group>"; };
 		17DFD48F1EB5A81700209E23 /* CampsiteListsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CampsiteListsTableViewController.swift; sourceTree = "<group>"; };
 		58610A42FFF9E2B4D73680F8 /* Pods-BonFire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BonFire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BonFire/Pods-BonFire.debug.xcconfig"; sourceTree = "<group>"; };
 		8122201D49A68097BFDF4554 /* Pods_BonFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BonFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 		17100D4B1EADBBD70054271C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				17AEB1ED1EF43F390073FEB7 /* BonFireImageView.swift */,
 				171F6CE51EB8E009000FE40F /* FirebaseClient.swift */,
 				171F6CF01EC0728B000FE40F /* FirebaseClient+Storage.swift */,
 				17100D651EB02BFD0054271C /* Cell */,
@@ -400,6 +403,7 @@
 				172227521EB6D49900F9E3B9 /* Campsite.swift in Sources */,
 				17100D5E1EAFA5A50054271C /* ChatViewController.swift in Sources */,
 				17100D751EB21ACE0054271C /* SignInViewController.swift in Sources */,
+				17AEB1EE1EF43F390073FEB7 /* BonFireImageView.swift in Sources */,
 				171F6CEC1EBF2BD7000FE40F /* UserInfoEditView.swift in Sources */,
 				17100D621EB02BE10054271C /* OthersChatTableViewCell.swift in Sources */,
 				17100D391EADBB560054271C /* AppDelegate.swift in Sources */,

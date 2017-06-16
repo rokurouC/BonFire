@@ -59,5 +59,41 @@ extension FirebaseClient {
             
         }
     }
+    
+    func testUploadMessageImage(image:UIImage, quality:CGFloat, completion:@escaping (_ isUploadFailed:Bool, _ messageImageDownUrl:String?, _ progress:Float?) -> Void) {
+        if let uploadData = UIImageJPEGRepresentation(image, quality) {
+            let imageName = NSUUID().uuidString
+            let messageImageStorageRef = Storage.storage().reference().child(Constants.FIRStorageConstants.message_image).child("\(imageName)")
+            let uploadTask = messageImageStorageRef.putData(uploadData, metadata: nil)
+            uploadTask.observe(.progress, handler: { (progressSnapshot) in
+                if let completedUnitCount = progressSnapshot.progress?.completedUnitCount , let totalUnitCount = progressSnapshot.progress?.totalUnitCount {
+                    let percentComplete = Float(completedUnitCount) / Float(totalUnitCount)
+                    completion(false, nil, percentComplete)
+                }
+            })
+            uploadTask.observe(.success, handler: { (successSnapshot) in
+                uploadTask.removeAllObservers()
+                if let downloadUrlString = successSnapshot.metadata?.downloadURL()?.absoluteString {
+                    completion(false, downloadUrlString, nil)
+                }
+            })
+            uploadTask.observe(.failure, handler: { (failureSnapshot) in
+                uploadTask.removeAllObservers()
+                if let _ = failureSnapshot.error {
+                    completion(true, nil, nil)
+                }
+//                if let error = failureSnapshot.error as? NSError {
+//                    switch (StorageErrorCode(rawValue: error.code)!) {
+//                        //StorageErrorCode case implement
+//                    }
+//                }
+            })
+            
+            
+        }
+    }
+    
+    
+    
 }
 

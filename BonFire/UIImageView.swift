@@ -25,6 +25,8 @@ extension UIImageView {
             
             self.addSubview(active)
             active.startAnimating()
+            
+            
             URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
                 DispatchQueue.main.async {
                     active.stopAnimating()

@@ -234,11 +234,18 @@ extension ChatViewController {
             dismiss(animated: true, completion: nil)
             return
         }
+        //Test
         if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: editImage), campsiteId: currentCampsite!.id, quality: 0.8)
         }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: originalImage), campsiteId: currentCampsite!.id, quality: 0.8)
         }
+//        //Orignal
+//        if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+//            FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: editImage), campsiteId: currentCampsite!.id, quality: 0.8)
+//        }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: originalImage), campsiteId: currentCampsite!.id, quality: 0.8)
+//        }
         dismiss(animated: true, completion: nil)
     }
     

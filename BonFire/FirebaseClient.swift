@@ -323,8 +323,6 @@ class FirebaseClient:NSObject {
         let messageIdRef = rootRef?.child(Constants.FIRDatabaseConstants.messages).child(campsiteId).child(messageId)
         messageIdRef?.keepSynced(true)
         messageIdRef?.updateChildValues(campsitesMessageRefData)
-        
-//        rootRef?.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
     }
     
     func addImageMessageToCampsite(user:BonFireUser, image:UIImage, campsiteId:String, quality:CGFloat) {
