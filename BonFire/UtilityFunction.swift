@@ -12,14 +12,14 @@ class UtilityFunction {
     
     static let shared = UtilityFunction()
     private var alertNowPresennt:UIAlertController?
-
+    
     func activityIndicatorViewWithCnterFrame(style:UIActivityIndicatorViewStyle, targetView:UIView) -> UIActivityIndicatorView {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: style)
         activity.center = targetView.center
         targetView.addSubview(activity)
         return activity
     }
-
+    
     enum Alert {
         case internetUnreachable
         case imageLoadFailed
@@ -30,7 +30,7 @@ class UtilityFunction {
         case sendTextMessageWithoutConnection
     }
     
-    func alert(_ type:Alert) {
+    func alert(_ type:Alert, sender:UIViewController? = nil) {
         var title:String!
         var message:String!
         switch type {
@@ -62,12 +62,16 @@ class UtilityFunction {
             self.alertNowPresennt = nil
         }
         alert.addAction(ok)
-        if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, alertNowPresennt == nil {
+        if let vc = sender, alertNowPresennt == nil {
+            alertNowPresennt = alert
+            DispatchQueue.main.async {
+                vc.present(alert, animated: true, completion: nil)
+            }
+        }else if let visibleVC = UIApplication.shared.keyWindow?.visibleViewController, alertNowPresennt == nil {
             alertNowPresennt = alert
             DispatchQueue.main.async {
                 visibleVC.present(alert, animated: true, completion: nil)
             }
         }
-        
     }
 }

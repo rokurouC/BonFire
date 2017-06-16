@@ -228,6 +228,12 @@ extension ChatViewController {
 
 extension ChatViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let isReachable = reachability?.isReachable, isReachable else {
+            //Can't sent image without connection, feature not open yet
+            UtilityFunction.shared.alert(.unableSendImageMessageWithoutConnection, sender: self)
+            dismiss(animated: true, completion: nil)
+            return
+        }
         if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: editImage), campsiteId: currentCampsite!.id, quality: 0.8)
         }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
