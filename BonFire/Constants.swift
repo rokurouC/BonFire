@@ -109,6 +109,10 @@ struct Constants {
             static let title = "Oops!"
             static let message = "It's disconnected, please connect to internet to login."
         }
+        struct SendTextMessageWithoutConnection {
+            static let title = "Note."
+            static let message = "You has sent an message offline, message will upload and everyone in the campsite can read when internet reconnect."
+        }
     }
     struct PoptipConstants {
         static let firstPoptip = "Welcome to BonFire!\nTo have fun in BonFire, please connect to internet when using App.\n< Tap me to next >"

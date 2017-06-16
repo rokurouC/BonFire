@@ -27,6 +27,7 @@ class UtilityFunction {
         case unableSendImageMessageWithoutConnection
         case unableCreatCampsiteWithoutConnectionAlert
         case needConnectinoToLogin
+        case sendTextMessageWithoutConnection
     }
     
     func alert(_ type:Alert) {
@@ -51,6 +52,10 @@ class UtilityFunction {
         case .needConnectinoToLogin:
             title = Constants.AlertConstants.NeedConnectionToLogin.title
             message = Constants.AlertConstants.NeedConnectionToLogin.message
+        case .sendTextMessageWithoutConnection:
+            title = Constants.AlertConstants.SendTextMessageWithoutConnection.title
+            message = Constants.AlertConstants.SendTextMessageWithoutConnection.message
+            
         }
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: Constants.confirm, style: .default){ [unowned self](_) in

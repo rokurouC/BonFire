@@ -19,6 +19,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     //MARK: - Property
     fileprivate var textContentViewMaxHeight:CGFloat = 150
     fileprivate var textViewSumOfTopAndBottomAnchorstoTextContextView:CGFloat = 16
+    private var hasBeenSentTextMessageOffline = false
     
     var messages = [Message]()
     var currentCampsite:Campsite?
@@ -104,6 +105,11 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
         chatTextView.resignFirstResponder()
         guard chatTextView.text.characters.count > 0 else {
             return
+        }
+        if let isReachable = reachability?.isReachable, !isReachable , !hasBeenSentTextMessageOffline {
+            //Can't sent image without connection, feature not open yet
+            UtilityFunction.shared.alert(.sendTextMessageWithoutConnection)
+            hasBeenSentTextMessageOffline = true
         }
         FirebaseClient.sharedInstance.addTextMessageToCampsite(user: currentUser!, text: chatTextView.text, campsiteId: currentCampsite!.id)
         chatTextView.text = ""
