@@ -12,8 +12,9 @@ enum MessageSender {
     case others
 }
 class ImageMessageTableViewCell: UITableViewCell {
-    var messageImageView:UIImageView = {
-        let imageView = UIImageView()
+    //test
+    var messageImageView:BonFireImageView = {
+        let imageView = BonFireImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
@@ -46,7 +47,7 @@ class ImageMessageTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, placeholderSize:CGSize, sender:MessageSender, message:Message) {
+    convenience init(style: UITableViewCellStyle, reuseIdentifier: String?, placeholderSize:CGSize, sender:MessageSender, message:Message, campsiteId:String, completion:@escaping (_ messageReturn:Message) ->Void) {
         self.init(style: style, reuseIdentifier: reuseIdentifier)
         let fixSize = calFixedSize(placeholderSize: placeholderSize)
         self.contentView.addSubview(avatarImageView)
@@ -73,7 +74,15 @@ class ImageMessageTableViewCell: UITableViewCell {
             messageImageView.heightAnchor.constraint(equalToConstant: fixSize.height).isActive = true
             messageImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -4).isActive = true
             messageImageView.layer.cornerRadius = 5
-            messageImageView.loadImageUsingCacheWithUrlString(urlString: message.messageImageUrl!, placeholdSize: message.messageImageSize)
+            if let _ = message.preloadImage {
+                //test
+                messageImageView.uploadAndDownloadImageMessageUsingCacheWithUrlString(message:message, placeholdSize: fixSize, campsiteId:campsiteId) { messageReturn in
+                    completion(messageReturn)
+                }
+            }else {
+                //test
+                messageImageView.downloadImageMessageUsingCacheWithUrlString(urlString: message.messageImageUrl!, isdownloadRightAfterUpolad: false, placeholdSize: fixSize)
+            }
             //timeLabel Layout
             timeLabel.text = message.timeString
             timeLabel.bottomAnchor.constraint(equalTo: messageImageView.bottomAnchor, constant: -5).isActive = true
@@ -103,8 +112,6 @@ class ImageMessageTableViewCell: UITableViewCell {
             timeLabel.bottomAnchor.constraint(equalTo: messageImageView.bottomAnchor, constant: -5).isActive = true
             timeLabel.leftAnchor.constraint(equalTo: messageImageView.rightAnchor, constant: 8).isActive = true
         }
-        
-        
     }
     
     func calFixedSize(placeholderSize:CGSize) -> CGSize {

@@ -43,24 +43,7 @@ extension FirebaseClient {
         }
     }
     
-    func uploadMessageImage(image:UIImage, quality:CGFloat, completion:@escaping (_ messageImageDownUrl:String) -> Void) {
-        if let uploadData = UIImageJPEGRepresentation(image, quality) {
-            let imageName = NSUUID().uuidString
-            let messageImageStorageRef = Storage.storage().reference().child(Constants.FIRStorageConstants.message_image).child("\(imageName)")
-            messageImageStorageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
-                guard error == nil else {
-                    print(error!)
-                    return
-                }
-                if let downloadUrlString = metadata?.downloadURL()?.absoluteString {
-                    completion(downloadUrlString)
-                }
-            })
-            
-        }
-    }
-    
-    func testUploadMessageImage(image:UIImage, quality:CGFloat, completion:@escaping (_ isUploadFailed:Bool, _ messageImageDownUrl:String?, _ progress:Float?) -> Void) {
+    func uploadMessageImage(image:UIImage, quality:CGFloat, completion:@escaping (_ isUploadFailed:Bool, _ messageImageDownUrl:String?, _ progress:Float?) -> Void) {
         if let uploadData = UIImageJPEGRepresentation(image, quality) {
             let imageName = NSUUID().uuidString
             let messageImageStorageRef = Storage.storage().reference().child(Constants.FIRStorageConstants.message_image).child("\(imageName)")
@@ -82,11 +65,6 @@ extension FirebaseClient {
                 if let _ = failureSnapshot.error {
                     completion(true, nil, nil)
                 }
-//                if let error = failureSnapshot.error as? NSError {
-//                    switch (StorageErrorCode(rawValue: error.code)!) {
-//                        //StorageErrorCode case implement
-//                    }
-//                }
             })
             
             

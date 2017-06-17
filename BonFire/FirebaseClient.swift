@@ -319,24 +319,28 @@ class FirebaseClient:NSObject {
                                        Constants.FIRDatabaseConstants.Message.avatarUrl:user.avatarUrl] as [String : Any]
         let lastMessageRef = rootRef?.child(Constants.FIRDatabaseConstants.campsites).child(campsiteId).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
         lastMessageRef?.keepSynced(true)
-        lastMessageRef?.updateChildValues(campsitesMessageRefData)
+        lastMessageRef?.setValue(campsitesMessageRefData)
         let messageIdRef = rootRef?.child(Constants.FIRDatabaseConstants.messages).child(campsiteId).child(messageId)
         messageIdRef?.keepSynced(true)
-        messageIdRef?.updateChildValues(campsitesMessageRefData)
+        messageIdRef?.setValue(campsitesMessageRefData)
     }
     
-    func addImageMessageToCampsite(user:BonFireUser, image:UIImage, campsiteId:String, quality:CGFloat) {
-        let messageId = messagesRef.child(campsiteId).childByAutoId().key
-        uploadMessageImage(image: image, quality: quality) { (downloadUrl) in
-            let campsitesMessageRefData = [Constants.FIRDatabaseConstants.Message.id:messageId,
-                                           Constants.FIRDatabaseConstants.Message.userId:user.uId,
-                                           Constants.FIRDatabaseConstants.Message.image:downloadUrl,Constants.FIRDatabaseConstants.Message.imageWidth:Double(image.size.width),
-                                           Constants.FIRDatabaseConstants.Message.imageHeight:Double(image.size.height),
-                                           Constants.FIRDatabaseConstants.Message.timestamp:Date.timeIntervalSinceReferenceDate,
-                                           Constants.FIRDatabaseConstants.Message.displayUserName:user.appDisplayName,
-                                           Constants.FIRDatabaseConstants.Message.avatarUrl:user.avatarUrl] as [String : Any]
-            self.rootRef?.updateChildValues(["/\(Constants.FIRDatabaseConstants.campsites)/\(campsiteId)/\(Constants.FIRDatabaseConstants.Campsite.lastmessage)/":campsitesMessageRefData, "/\(Constants.FIRDatabaseConstants.messages)/\(campsiteId)/\(messageId)":campsitesMessageRefData])
-        }
+    func autoIdWithCampsiteMessageRef(campsiteId:String) -> String {
+        return messagesRef.child(campsiteId).childByAutoId().key
+    }
+    
+    func addImageMessageToCampsite(message:Message, campsiteId:String) {
+        let campsitesMessageRefData = [Constants.FIRDatabaseConstants.Message.id:message.messageId,
+                                       Constants.FIRDatabaseConstants.Message.userId:message.userId,
+                                       Constants.FIRDatabaseConstants.Message.image:message.messageImageUrl!,Constants.FIRDatabaseConstants.Message.imageWidth:Double(message.preloadImage!.size.width),
+                                       Constants.FIRDatabaseConstants.Message.imageHeight:Double(message.preloadImage!.size.height),
+                                       Constants.FIRDatabaseConstants.Message.timestamp:message.timestamp,
+                                       Constants.FIRDatabaseConstants.Message.displayUserName:message.displayUserName,
+                                       Constants.FIRDatabaseConstants.Message.avatarUrl:message.avatarUrl] as [String : Any]
+        let lastMessageRef = rootRef?.child(Constants.FIRDatabaseConstants.campsites).child(campsiteId).child(Constants.FIRDatabaseConstants.Campsite.lastmessage)
+        let messageRef = rootRef?.child(Constants.FIRDatabaseConstants.messages).child(campsiteId).child(message.messageId)
+        lastMessageRef?.setValue(campsitesMessageRefData)
+        messageRef?.setValue(campsitesMessageRefData)
     }
     
     func getMessagesOfCampsiteWithId(user:BonFireUser, campsiteId:String, completion:@escaping (_ messages:[Message]?) -> Void) {

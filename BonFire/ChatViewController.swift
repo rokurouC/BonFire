@@ -11,7 +11,7 @@ import Firebase
 
 class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITableViewDataSource {
     //MARK: - IBOutlet
-    @IBOutlet private weak var chatTableView: UITableView!
+    @IBOutlet fileprivate weak var chatTableView: UITableView!
     @IBOutlet fileprivate weak var chatTextView: UITextView!
     @IBOutlet fileprivate weak var placeholderLabel: UILabel!
     @IBOutlet private weak var textContentView: UIView!
@@ -86,6 +86,15 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
             }
             self._campsiteLastMessageHandle = FirebaseClient.sharedInstance.listenLastMessageOfCampsiteWithId(user: self.currentUser!, campsiteId: self.currentCampsite!.id, completion: { [unowned self] (message) in
                 guard message != nil else { return }
+                
+                if let _ = message?.messageImageUrl {
+                    for meg in self.messages.reversed() {
+                        if meg.messageId == message?.messageId {
+                            return
+                        }
+                    }
+                }
+                
                 if let lastMessage = self.messages.last, lastMessage.messageId == message?.messageId {
                     return
                 }else {
@@ -136,7 +145,7 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
         chatTextView.resignFirstResponder()
     }
     
-    private func scrollToBottomMessage() {
+    fileprivate func scrollToBottomMessage() {
         if messages.count == 0 { return }
         let bottomMessageIndex = IndexPath(row: chatTableView.numberOfRows(inSection: 0) - 1, section: 0)
         chatTableView.scrollToRow(at: bottomMessageIndex, at: .none, animated: false)
@@ -150,14 +159,27 @@ class ChatViewController: BonFireBaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messages[indexPath.row]
-        if let _ = message.messageImageUrl, message.userId == currentUser!.uId {
-            let cell = ImageMessageTableViewCell(style: .default, reuseIdentifier: "imageMessageCell", placeholderSize: message.messageImageSize!, sender: .user, message: message)
+        //user just upload imageMessage
+        if message.userId == currentUser!.uId, let _ = message.preloadImage {
+            let cell = ImageMessageTableViewCell(style: .default, reuseIdentifier: "imageMessageCell", placeholderSize: message.messageImageSize!, sender: .user, message: message, campsiteId:currentCampsite!.id) {messageReturn in
+                self.messages[indexPath.row] = messageReturn
+            }
             cell.isUserInteractionEnabled = false
             return cell
-            
         }
+        
+        if let _ = message.messageImageUrl, message.userId == currentUser!.uId {
+            let cell = ImageMessageTableViewCell(style: .default, reuseIdentifier: "imageMessageCell", placeholderSize: message.messageImageSize!, sender: .user, message: message, campsiteId:currentCampsite!.id) {_ in 
+                //completion
+            }
+            cell.isUserInteractionEnabled = false
+            return cell
+        }
+        
         if let _ = message.messageImageUrl, message.userId != currentUser!.uId {
-            let cell = ImageMessageTableViewCell(style: .default, reuseIdentifier: "imageMessageCell", placeholderSize: message.messageImageSize!, sender: .others, message: message)
+            let cell = ImageMessageTableViewCell(style: .default, reuseIdentifier: "imageMessageCell", placeholderSize: message.messageImageSize!, sender: .others, message: message, campsiteId:currentCampsite!.id) {_ in 
+                //completion
+            }
             cell.isUserInteractionEnabled = false
             return cell
             
@@ -234,19 +256,21 @@ extension ChatViewController {
             dismiss(animated: true, completion: nil)
             return
         }
-        //Test
+
         if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: editImage), campsiteId: currentCampsite!.id, quality: 0.8)
-        }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: originalImage), campsiteId: currentCampsite!.id, quality: 0.8)
+            let message = preloadImageMessage(image: editImage)
+            self.messages.append(message)
+            DispatchQueue.main.async {
+                self.chatTableView.insertRows(at: [IndexPath(row: self.messages.count - 1, section: 0)], with: .automatic)
+                self.scrollToBottomMessage()
+            }
         }
-//        //Orignal
-//        if let editImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-//            FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: editImage), campsiteId: currentCampsite!.id, quality: 0.8)
-//        }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            FirebaseClient.sharedInstance.addImageMessageToCampsite(user: currentUser!, image: resize(image: originalImage), campsiteId: currentCampsite!.id, quality: 0.8)
-//        }
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func preloadImageMessage(image:UIImage) -> Message {
+        let resizeImage = resize(image: image)
+        return Message(id: FirebaseClient.sharedInstance.autoIdWithCampsiteMessageRef(campsiteId: currentCampsite!.id), userId: currentUser!.uId, messageText: nil, messageImageUrl: nil, timeStamp: Date.timeIntervalSinceReferenceDate, imageSize: resizeImage.size, avatarUrl: currentUser!.avatarUrl, displayName: currentUser!.appDisplayName, preloadImage:resizeImage)
     }
     
     //TEST

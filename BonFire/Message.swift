@@ -12,12 +12,13 @@ struct Message {
     let messageId:String
     let userId:String
     let messageText:String?
-    let messageImageUrl:String?
+    var messageImageUrl:String?
     let messageImageSize:CGSize?
     let timestamp:Double
     let timeString:String
     let avatarUrl:String
     let displayUserName:String
+    var preloadImage:UIImage?
     
 
     init(_ data:[String:Any]){
@@ -41,6 +42,20 @@ struct Message {
         self.avatarUrl = avatarUrl
         self.displayUserName = messageDisplayUserName
         self.messageImageSize = imageWidth != nil ? CGSize(width: imageWidth!, height: imageHeight!) : nil
+        self.preloadImage = nil
+    }
+    //test
+    init(id:String, userId:String, messageText:String?, messageImageUrl:String?, timeStamp:Double, imageSize:CGSize?, avatarUrl:String, displayName:String, preloadImage:UIImage) {
+        self.messageId = id
+        self.userId = userId
+        self.messageText = messageText
+        self.messageImageUrl = messageImageUrl
+        self.messageImageSize = imageSize
+        self.timestamp = timeStamp
+        self.timeString = Message.timeString(Date(timeIntervalSinceReferenceDate: timeStamp))
+        self.avatarUrl = avatarUrl
+        self.displayUserName = displayName
+        self.preloadImage = preloadImage
     }
     
     static func timeString(_ date:Date) -> String {
